@@ -1,6 +1,13 @@
 <resources>
-    <string name="app_name">ShoppingList</string>
-    <string name="title_home">ShoppingList</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="app_name">Lista de compras</string>
+    <string name="title_home">Lista de compras</string>
+    <string name="title_dashboard">Historial</string>
+    <string name="title_notifications">Notificaciones</string>
+
+    <string name="text_product">Producto</string>
+    <string name="text_value">Valor</string>
+    <string name="text_quantity">Cantidad</string>
+    <string name="product">producto</string>
+    <string name="value">0</string>
+    <string name="quantity">0</string>
 </resources>
