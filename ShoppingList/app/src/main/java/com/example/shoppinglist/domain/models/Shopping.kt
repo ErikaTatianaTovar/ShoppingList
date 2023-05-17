@@ -4,7 +4,7 @@ import java.io.Serializable
 
 data class Shopping(
     val id: Int,
-    val nameOfProduct: String,
-    val value: Int,
-    val quantity: Int,
+    var nameOfProduct: String,
+    var price: Double,
+    var quantity: Int,
 ) : Serializable

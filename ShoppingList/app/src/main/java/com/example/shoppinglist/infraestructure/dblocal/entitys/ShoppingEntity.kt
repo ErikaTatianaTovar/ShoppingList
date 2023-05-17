@@ -4,13 +4,12 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "Shopping")
+@Entity(tableName = "Shopping_table")
 data class ShoppingEntity(
     @PrimaryKey
     @ColumnInfo(name = "idShopping")
-
     val id: Int,
     val nameOfProduct: String,
-    val value: Int,
+    val price: Double,
     val quantity: Int,
 )

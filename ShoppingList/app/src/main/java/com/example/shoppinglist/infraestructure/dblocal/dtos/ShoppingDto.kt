@@ -9,7 +9,7 @@ fun List<Shopping>.toShoppingEntity(idCategory: Int): List<ShoppingEntity> {
         ShoppingEntity(
             id = shopping.id,
             nameOfProduct = shopping.nameOfProduct,
-            value = shopping.value,
+            price = shopping.price,
             quantity = shopping.quantity,
         )
     }
@@ -20,7 +20,7 @@ fun List<ShoppingEntity>.toDomainModel(): List<Shopping> {
         Shopping(
             id = shoppingEntity.id,
             nameOfProduct = shoppingEntity.nameOfProduct,
-            value = shoppingEntity.value,
+            price = shoppingEntity.price,
             quantity = shoppingEntity.quantity,
         )
     }

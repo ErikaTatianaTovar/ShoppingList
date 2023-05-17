@@ -3,6 +3,7 @@ package com.example.shoppinglist.application.home.view
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.widget.doOnTextChanged
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppinglist.BR
@@ -28,25 +29,28 @@ class RecyclerShoppingAdapter(private val shoppingHomeViewModel: ShoppingHomeVie
     }
 
     override fun onItemDismiss(position: Int) {
-        shoppingHomeViewModel.removeNewItemToShop()
+        shoppingHomeViewModel.removeNewItemToShop(position)
     }
 
     override fun onItemMove(fromPosition: Int, toPosition: Int) {
 
     }
 
-    class ItemShoppingHolder(private val binding: ViewDataBinding) :
+    class ItemShoppingHolder(private val binding: ShoppingItemBinding) :
         RecyclerView.ViewHolder(binding.root), ItemTouchHelperViewHolder {
         fun setDataShopping(shoppingHomeViewModel: ShoppingHomeViewModel, position: Int) {
 
             binding.setVariable(BR.viewModel, shoppingHomeViewModel)
             binding.setVariable(BR.position, position)
 
+            binding.textBoxPrice.doOnTextChanged { text, start, before, count ->
+                shoppingHomeViewModel.shoppingList[position].price = text.toString().toDouble()
+            }
+
             binding.executePendingBindings()
         }
 
         override fun onItemSelected() {
-            // Cambia el estado de la vista del elemento cuando se selecciona para eliminar
             binding.root.setBackgroundColor(
                 ContextCompat.getColor(
                     binding.root.context,
@@ -56,7 +60,6 @@ class RecyclerShoppingAdapter(private val shoppingHomeViewModel: ShoppingHomeVie
         }
 
         override fun onItemClear() {
-            // Restaura el estado de la vista del elemento cuando se completa el deslizamiento
             binding.root.setBackgroundColor(
                 ContextCompat.getColor(
                     binding.root.context,
