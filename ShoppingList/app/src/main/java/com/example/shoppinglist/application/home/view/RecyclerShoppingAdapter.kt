@@ -21,7 +21,7 @@ class RecyclerShoppingAdapter(private val shoppingHomeViewModel: ShoppingHomeVie
     }
 
     override fun onBindViewHolder(holder: ItemShoppingHolder, position: Int) {
-        holder.setDataShopping(shoppingHomeViewModel, position)
+        holder.setDataShopping(shoppingHomeViewModel ,position)
     }
 
     override fun getItemCount(): Int {
@@ -39,12 +39,21 @@ class RecyclerShoppingAdapter(private val shoppingHomeViewModel: ShoppingHomeVie
     class ItemShoppingHolder(private val binding: ShoppingItemBinding) :
         RecyclerView.ViewHolder(binding.root), ItemTouchHelperViewHolder {
         fun setDataShopping(shoppingHomeViewModel: ShoppingHomeViewModel, position: Int) {
+            val shopping = shoppingHomeViewModel.shoppingList[position]
 
             binding.setVariable(BR.viewModel, shoppingHomeViewModel)
             binding.setVariable(BR.position, position)
 
-            binding.textBoxPrice.doOnTextChanged { text, start, before, count ->
-                shoppingHomeViewModel.shoppingList[position].price = text.toString().toDouble()
+            binding.textBoxProduct.doOnTextChanged { text, _, _, _ ->
+                shopping.nameOfProduct = text.toString()
+            }
+
+            binding.textBoxPrice.doOnTextChanged { text, _, _, _ ->
+                shopping.price = text.toString().toDouble()
+            }
+
+            binding.textBoxQuantity.doOnTextChanged { text, _, _, _ ->
+                shopping.quantity = text.toString().toInt()
             }
 
             binding.executePendingBindings()

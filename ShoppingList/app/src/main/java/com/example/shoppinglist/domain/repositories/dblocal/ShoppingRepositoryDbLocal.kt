@@ -5,5 +5,5 @@ import com.example.shoppinglist.domain.models.Shopping
 
 interface ShoppingRepositoryDbLocal {
     fun getAllShopping(idCategory: Int): List<Shopping>
-    fun insertAll(entities: List<ShoppingEntity>)
+    suspend fun insertAll(entities: List<ShoppingEntity>)
 }

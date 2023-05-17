@@ -15,7 +15,7 @@ class ShoppingRepositoryRoom constructor(
         return shoppingDao.getAllShopping(idCategory).toDomainModel()
     }
 
-    override fun insertAll(entities: List<ShoppingEntity>) {
+    override suspend fun insertAll(entities: List<ShoppingEntity>) {
         return shoppingDao.insertAll(entities)
     }
     fun getSumOfPrices(): LiveData<Double> {

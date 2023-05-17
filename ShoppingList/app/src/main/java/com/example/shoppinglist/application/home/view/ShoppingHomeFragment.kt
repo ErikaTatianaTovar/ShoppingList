@@ -18,7 +18,6 @@ class ShoppingHomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var recyclerViewShopping: RecyclerView
-    private lateinit var shoppingAdapter: RecyclerShoppingAdapter
     private lateinit var homeViewModel: ShoppingHomeViewModel
     //FloatingActionButton
 
@@ -32,29 +31,36 @@ class ShoppingHomeFragment : Fragment() {
         return root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         homeViewModel = ViewModelProvider(this)[ShoppingHomeViewModel::class.java]
-        shoppingAdapter = RecyclerShoppingAdapter(homeViewModel)
 
         recyclerViewShopping = binding.recyclerViewShopping
+        recyclerViewShopping.adapter = homeViewModel.recyclerShoppingAdapter
 
+        homeViewModel.createDB(requireContext())
+       // homeViewModel.createDB(this) // o
+        //homeViewModel.createDB(applicationContext)
+
+        binding.floatingActionButton.setOnClickListener {
+            homeViewModel.addNewItemShop()
+        }
         itemTouchCallback()
-
-
-
-
+        sumOfPrices()
     }
 
     private fun itemTouchCallback() {
-        val itemTouchHelperCallback = ItemTouchHelperCallback(shoppingAdapter)
+        val itemTouchHelperCallback = ItemTouchHelperCallback(homeViewModel.recyclerShoppingAdapter)
         val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
         itemTouchHelper.attachToRecyclerView(recyclerViewShopping)
 
         binding.model = homeViewModel
-        binding.floatingActionButton.setOnClickListener {
-            homeViewModel.addNewItemShop()
-            val songsFound = getString(R.string.text_total, homeViewModel.getSumOfPrices().toString())
+    }
+
+    fun sumOfPrices() {
+        homeViewModel.getSumOfPrices().observe(viewLifecycleOwner) { sum ->
+            val songsFound = getString(R.string.text_total, (sum ?: 0.0).toString() )
             binding.textTotal.text = songsFound
         }
     }

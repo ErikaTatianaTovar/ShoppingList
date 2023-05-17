@@ -4,10 +4,10 @@ import com.example.shoppinglist.infraestructure.dblocal.entitys.ShoppingEntity
 import com.example.shoppinglist.domain.models.Shopping
 
 
-fun List<Shopping>.toShoppingEntity(idCategory: Int): List<ShoppingEntity> {
-    return map { shopping ->
+fun List<Shopping>.toShoppingEntity(): List<ShoppingEntity> {
+    return mapIndexed { position, shopping ->
         ShoppingEntity(
-            id = shopping.id,
+            id = position,
             nameOfProduct = shopping.nameOfProduct,
             price = shopping.price,
             quantity = shopping.quantity,
