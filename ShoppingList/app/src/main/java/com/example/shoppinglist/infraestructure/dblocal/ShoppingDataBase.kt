@@ -5,9 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.shoppinglist.infraestructure.dblocal.daos.ShoppingDao
+import com.example.shoppinglist.infraestructure.dblocal.entitys.MarketEntity
 import com.example.shoppinglist.infraestructure.dblocal.entitys.ShoppingEntity
 
-@Database(entities = [ShoppingEntity::class], version = 1)
+@Database(entities = [ShoppingEntity::class,MarketEntity::class], version = 1)
 abstract class ShoppingDataBase : RoomDatabase() {
 
     abstract fun shoppingDao(): ShoppingDao

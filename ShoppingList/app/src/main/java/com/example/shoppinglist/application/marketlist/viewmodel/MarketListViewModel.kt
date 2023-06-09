@@ -1,13 +1,39 @@
-package com.example.shoppinglist.application.dashboard.viewmodel
+package com.example.shoppinglist.application.marketlist.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import android.content.Context
 import androidx.lifecycle.ViewModel
+import com.example.shoppinglist.application.marketlist.view.RecyclerMarketListAdapter
+import com.example.shoppinglist.domain.models.Market
+import com.example.shoppinglist.infraestructure.dblocal.MarketDataBase
+import com.example.shoppinglist.infraestructure.dblocal.dtos.toMarketEntity
+import com.example.shoppinglist.infraestructure.dblocal.repositories.MarketListRepositoryRoom
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
-class DashboardViewModel : ViewModel() {
+class MarketListViewModel() : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is dashboard Fragment"
+    val recyclerMarketListAdapter: RecyclerMarketListAdapter = RecyclerMarketListAdapter(this)
+    val marketList: ArrayList<Market> = arrayListOf(Market(0, "", 0))
+    private lateinit var marketRepositoryRoom: MarketListRepositoryRoom
+
+    fun createDB(context: Context){
+        // val applicationContext = context.applicationContext
+        val marketDao = MarketDataBase.getInstance(context).marketDao()
+        marketRepositoryRoom = MarketListRepositoryRoom(marketDao)
     }
-    val text: LiveData<String> = _text
+
+    fun addNewItemMarketList() {
+        val market = Market(0, "", 0)
+        marketList.add(market)
+        recyclerMarketListAdapter.notifyDataSetChanged()
+        GlobalScope.launch{
+            marketRepositoryRoom.insertAll(marketList.toMarketEntity())
+        }
+    }
+
+    fun removeNewItemToMarketList(position:Int) {
+        marketList.removeAt(position)
+        recyclerMarketListAdapter.notifyDataSetChanged()
+    }
+
 }

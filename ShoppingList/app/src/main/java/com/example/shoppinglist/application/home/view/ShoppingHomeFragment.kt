@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -19,7 +18,6 @@ class ShoppingHomeFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var recyclerViewShopping: RecyclerView
     private lateinit var homeViewModel: ShoppingHomeViewModel
-    //FloatingActionButton
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,14 +34,12 @@ class ShoppingHomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         homeViewModel = ViewModelProvider(this)[ShoppingHomeViewModel::class.java]
 
-        recyclerViewShopping = binding.recyclerViewShopping
+        recyclerViewShopping = binding.rvShopping
         recyclerViewShopping.adapter = homeViewModel.recyclerShoppingAdapter
 
         homeViewModel.createDB(requireContext())
-       // homeViewModel.createDB(this) // o
-        //homeViewModel.createDB(applicationContext)
 
-        binding.floatingActionButton.setOnClickListener {
+        binding.shoppingFloatingActionButton.setOnClickListener {
             homeViewModel.addNewItemShop()
         }
         itemTouchCallback()
@@ -60,7 +56,7 @@ class ShoppingHomeFragment : Fragment() {
 
     fun sumOfPrices() {
         homeViewModel.getSumOfPrices().observe(viewLifecycleOwner) { sum ->
-            val songsFound = getString(R.string.text_total, (sum ?: 0.0).toString() )
+            val songsFound = getString(R.string.text_total, (sum ?: 0.0).toString())
             binding.textTotal.text = songsFound
         }
     }

@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.shoppinglist.application.dashboard.view.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_market_list"
+        android:name="com.example.shoppinglist.application.marketlist.view.MarketListFragment"
+        android:label="@string/title_market_list"
+        tools:layout="@layout/fragment_market_list" />
 
     <fragment
         android:id="@+id/navigation_notifications"

@@ -1,7 +1,7 @@
 package com.example.shoppinglist.application.home.viewmodel
 
+import android.annotation.SuppressLint
 import android.content.Context
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.shoppinglist.application.home.view.RecyclerShoppingAdapter
@@ -10,7 +10,6 @@ import com.example.shoppinglist.infraestructure.dblocal.ShoppingDataBase
 import com.example.shoppinglist.infraestructure.dblocal.dtos.toShoppingEntity
 import com.example.shoppinglist.infraestructure.dblocal.repositories.ShoppingRepositoryRoom
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class ShoppingHomeViewModel: ViewModel() {
@@ -25,6 +24,7 @@ class ShoppingHomeViewModel: ViewModel() {
        shoppingRepositoryRoom = ShoppingRepositoryRoom(shoppingDao)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun addNewItemShop() {
         val shopping = Shopping(0, "", 0.0, 0)
         shoppingList.add(shopping)
@@ -34,6 +34,7 @@ class ShoppingHomeViewModel: ViewModel() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun removeNewItemToShop(position:Int) {
         shoppingList.removeAt(position)
         recyclerShoppingAdapter.notifyDataSetChanged()

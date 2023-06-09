@@ -10,7 +10,7 @@
             type="Integer" />
 
         <variable
-            name="viewModel"
+            name="shoppingHomeViewModel"
             type="com.example.shoppinglist.application.home.viewmodel.ShoppingHomeViewModel" />
     </data>
 
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         tools:context=".application.home.view.ShoppingHomeFragment">
 
-        <EditText
+        <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/text_box_product"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
             app:layout_constraintEnd_toStartOf="@+id/text_box_price"
             app:layout_constraintStart_toStartOf="parent"/>
 
-        <EditText
+        <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/text_box_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
             app:layout_constraintStart_toEndOf="@+id/text_box_product"
             />
 
-        <EditText
+        <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/text_box_quantity"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
