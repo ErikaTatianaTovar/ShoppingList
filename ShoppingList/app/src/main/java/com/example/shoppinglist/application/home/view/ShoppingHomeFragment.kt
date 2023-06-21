@@ -33,6 +33,7 @@ class ShoppingHomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         homeViewModel = ViewModelProvider(this)[ShoppingHomeViewModel::class.java]
+        homeViewModel.lifecycleOwner = this
 
         recyclerViewShopping = binding.rvShopping
         recyclerViewShopping.adapter = homeViewModel.recyclerShoppingAdapter

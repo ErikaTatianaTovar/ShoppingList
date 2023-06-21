@@ -36,6 +36,7 @@ class MarketListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         marketListViewModel = ViewModelProvider(this)[MarketListViewModel::class.java]
+        marketListViewModel.lifecycleOwner = this
 
         rvMarket = binding.rvMarketList
         rvMarket.adapter = marketListViewModel.recyclerMarketListAdapter

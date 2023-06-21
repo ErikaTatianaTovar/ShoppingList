@@ -1,6 +1,7 @@
 package com.example.shoppinglist.application.marketlist.viewmodel
 
 import android.content.Context
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import com.example.shoppinglist.application.marketlist.view.RecyclerMarketListAdapter
 import com.example.shoppinglist.domain.models.Market
@@ -15,6 +16,7 @@ class MarketListViewModel() : ViewModel() {
     val recyclerMarketListAdapter: RecyclerMarketListAdapter = RecyclerMarketListAdapter(this)
     val marketList: ArrayList<Market> = arrayListOf(Market(0, "", 0))
     private lateinit var marketRepositoryRoom: MarketListRepositoryRoom
+    lateinit var lifecycleOwner: LifecycleOwner
 
     fun createDB(context: Context){
         // val applicationContext = context.applicationContext

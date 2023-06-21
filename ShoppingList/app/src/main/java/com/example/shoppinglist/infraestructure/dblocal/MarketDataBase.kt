@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.shoppinglist.infraestructure.dblocal.daos.MarketDao
 import com.example.shoppinglist.infraestructure.dblocal.entitys.MarketEntity
 
-@Database(entities = [MarketEntity::class], version = 1)
+@Database(entities = [MarketEntity::class], version = 2)
 abstract class MarketDataBase : RoomDatabase() {
 
     abstract fun marketDao(): MarketDao
