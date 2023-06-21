@@ -12,30 +12,34 @@ import com.example.shoppinglist.infraestructure.dblocal.repositories.ShoppingRep
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class ShoppingHomeViewModel: ViewModel() {
+class ShoppingHomeViewModel : ViewModel() {
 
-    val recyclerShoppingAdapter: RecyclerShoppingAdapter = RecyclerShoppingAdapter(this)
-    val shoppingList: ArrayList<Shopping> = arrayListOf(Shopping(0, "", 0.0, 0))
+    val recyclerShoppingAdapter: RecyclerShoppingAdapter =
+        RecyclerShoppingAdapter(this) {
+            shoppingRepositoryRoom.calculateTotalPrice().observe(1).value.toString()
+        }
+
+    val shoppingList: ArrayList<Shopping> = arrayListOf(Shopping(0, "", 0.0, 0, 0.0))
     private lateinit var shoppingRepositoryRoom: ShoppingRepositoryRoom
 
-    fun createDB(context: Context){
-       // val applicationContext = context.applicationContext
+    fun createDB(context: Context) {
+        // val applicationContext = context.applicationContext
         val shoppingDao = ShoppingDataBase.getInstance(context).shoppingDao()
-       shoppingRepositoryRoom = ShoppingRepositoryRoom(shoppingDao)
+        shoppingRepositoryRoom = ShoppingRepositoryRoom(shoppingDao)
     }
 
     @SuppressLint("NotifyDataSetChanged")
     fun addNewItemShop() {
-        val shopping = Shopping(0, "", 0.0, 0)
+        val shopping = Shopping(0, "", 0.0, 0, 0.0)
         shoppingList.add(shopping)
         recyclerShoppingAdapter.notifyDataSetChanged()
-        GlobalScope.launch{
+        GlobalScope.launch {
             shoppingRepositoryRoom.insertAll(shoppingList.toShoppingEntity())
         }
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun removeNewItemToShop(position:Int) {
+    fun removeNewItemToShop(position: Int) {
         shoppingList.removeAt(position)
         recyclerShoppingAdapter.notifyDataSetChanged()
     }

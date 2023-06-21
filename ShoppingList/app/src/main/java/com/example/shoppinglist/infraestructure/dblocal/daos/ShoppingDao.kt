@@ -12,8 +12,10 @@ interface ShoppingDao {
 
     @Query("SELECT * FROM shopping_table WHERE idShopping = :idShopping")
     fun getAllShopping(idShopping: Int): List<ShoppingEntity>
+    @Query("SELECT SUM(unitPrice * quantity) FROM shopping_table")
+    fun getcalculateTotalPrice(): LiveData<Double>
 
-    @Query("SELECT SUM(price) FROM shopping_table")
+    @Query("SELECT SUM(totalPricePerProduct) FROM shopping_table")
     fun getSumOfPrices(): LiveData<Double>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

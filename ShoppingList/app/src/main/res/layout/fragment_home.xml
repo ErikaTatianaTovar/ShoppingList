@@ -23,16 +23,16 @@
             android:text="@string/text_product"
             android:textAlignment="center"
             android:textSize="20sp"
-            app:layout_constraintEnd_toStartOf="@+id/text_price"
+            app:layout_constraintEnd_toStartOf="@+id/text_unit_price"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_price"
+            android:id="@+id/text_unit_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@string/text_price"
+            android:text="@string/text_unit_price"
             android:textAlignment="center"
             android:textSize="20sp"
             app:layout_constraintEnd_toStartOf="@+id/text_quantity"
@@ -47,10 +47,21 @@
             android:text="@string/text_quantity"
             android:textAlignment="center"
             android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/text_price"
+            app:layout_constraintEnd_toStartOf="@+id/text_total_per_product"
+            app:layout_constraintStart_toEndOf="@+id/text_unit_price"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_total_per_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/total_per_product"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/text_quantity"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_shopping"
@@ -59,10 +70,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_price"
+            app:layout_constraintTop_toBottomOf="@+id/text_unit_price"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:setAdapter="@{model.getRecyclerShoppingAdapter}"
-            />
+            app:setAdapter="@{model.getRecyclerShoppingAdapter}" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_total"

@@ -18,6 +18,11 @@ class ShoppingRepositoryRoom constructor(
     override suspend fun insertAll(entities: List<ShoppingEntity>) {
         return shoppingDao.insertAll(entities)
     }
+
+    fun calculateTotalPrice(): LiveData<Double> {
+        return shoppingDao.getcalculateTotalPrice()
+    }
+
     fun getSumOfPrices(): LiveData<Double> {
         return shoppingDao.getSumOfPrices()
     }

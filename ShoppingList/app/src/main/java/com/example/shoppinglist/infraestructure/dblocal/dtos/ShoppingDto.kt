@@ -9,8 +9,9 @@ fun List<Shopping>.toShoppingEntity(): List<ShoppingEntity> {
         ShoppingEntity(
             id = position,
             nameOfProduct = shopping.nameOfProduct,
-            price = shopping.price,
+            unitPrice = shopping.unitPrice,
             quantity = shopping.quantity,
+            totalPricePerProduct = shopping.totalPricePerProduct,
         )
     }
 }
@@ -20,8 +21,9 @@ fun List<ShoppingEntity>.toDomainModel(): List<Shopping> {
         Shopping(
             id = shoppingEntity.id,
             nameOfProduct = shoppingEntity.nameOfProduct,
-            price = shoppingEntity.price,
+            unitPrice = shoppingEntity.unitPrice,
             quantity = shoppingEntity.quantity,
+            totalPricePerProduct = shoppingEntity.totalPricePerProduct,
         )
     }
 }

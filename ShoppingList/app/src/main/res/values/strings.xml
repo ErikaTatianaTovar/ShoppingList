@@ -5,10 +5,12 @@
     <string name="title_notifications">Notificaciones</string>
 
     <string name="text_product">Producto</string>
-    <string name="text_price">Precio</string>
+    <string name="text_unit_price">Precio/U</string>
     <string name="text_quantity">Cantidad</string>
+    <string name="total_per_product">Total</string>
     <string name="product">Producto</string>
     <string name="value">0</string>
     <string name="quantity">0</string>
     <string name="text_total">Total: %1$s</string>
+    <string name="text_total_per_product">Total %1$s</string>
 </resources>

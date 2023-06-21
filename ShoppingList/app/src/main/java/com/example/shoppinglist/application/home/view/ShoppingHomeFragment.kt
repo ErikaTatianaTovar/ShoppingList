@@ -61,6 +61,7 @@ class ShoppingHomeFragment : Fragment() {
         }
     }
 
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
