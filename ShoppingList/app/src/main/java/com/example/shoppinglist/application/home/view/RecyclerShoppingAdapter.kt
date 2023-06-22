@@ -4,15 +4,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppinglist.BR
 import com.example.shoppinglist.R
 import com.example.shoppinglist.application.home.viewmodel.ShoppingHomeViewModel
 import com.example.shoppinglist.databinding.ShoppingItemBinding
+import com.example.shoppinglist.infraestructure.dblocal.repositories.ShoppingRepositoryRoom
 
 class RecyclerShoppingAdapter(
     private val shoppingHomeViewModel: ShoppingHomeViewModel,
-    private val getValueByQuantity: () -> String
+    private val getValueByQuantity: () -> String,
+    var adapterCallback: AdapterCallback? = null
 ) :
     RecyclerView.Adapter<RecyclerShoppingAdapter.ItemShoppingHolder>(), ItemTouchHelperAdapter {
 
@@ -23,7 +26,7 @@ class RecyclerShoppingAdapter(
     }
 
     override fun onBindViewHolder(holder: ItemShoppingHolder, position: Int) {
-        holder.setDataShopping(shoppingHomeViewModel, position,getValueByQuantity)
+        holder.setDataShopping(shoppingHomeViewModel, position, getValueByQuantity, adapterCallback)
     }
 
     override fun getItemCount(): Int {
@@ -39,10 +42,16 @@ class RecyclerShoppingAdapter(
     }
 
     class ItemShoppingHolder(
-        private val binding: ShoppingItemBinding
+        val binding: ShoppingItemBinding
     ) :
         RecyclerView.ViewHolder(binding.root), ItemTouchHelperViewHolder {
-        fun setDataShopping(shoppingHomeViewModel: ShoppingHomeViewModel, position: Int,getValueByQuantity: () -> String) {
+
+        fun setDataShopping(
+            shoppingHomeViewModel: ShoppingHomeViewModel,
+            position: Int,
+            getValueByQuantity: () -> String,
+            adapterCallback: AdapterCallback?
+        ) {
             val shopping = shoppingHomeViewModel.shoppingList[position]
 
             binding.setVariable(BR.shoppingHomeViewModel, shoppingHomeViewModel)
@@ -54,12 +63,15 @@ class RecyclerShoppingAdapter(
 
             binding.textBoxUnitPrice.doOnTextChanged { text, _, _, _ ->
                 shopping.unitPrice = text.toString().toDouble()
-                binding.textBoxTotalPerProduct.text = getValueByQuantity()
+                binding.valueTotalPerProduct.text = getValueByQuantity()
+                adapterCallback?.onValueUpdated(adapterPosition, getValueByQuantity())
+
             }
 
             binding.textBoxQuantity.doOnTextChanged { text, _, _, _ ->
                 shopping.quantity = text.toString().toInt()
-                binding.textBoxTotalPerProduct.text = getValueByQuantity()
+                binding.valueTotalPerProduct.text = getValueByQuantity()
+                adapterCallback?.onValueUpdated(adapterPosition, getValueByQuantity())
             }
 
             binding.executePendingBindings()

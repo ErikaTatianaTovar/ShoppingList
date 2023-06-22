@@ -12,5 +12,5 @@
     <string name="value">0</string>
     <string name="quantity">0</string>
     <string name="text_total">Total: %1$s</string>
-    <string name="text_total_per_product">Total %1$s</string>
+    <string name="value_total_per_product">%1$s</string>
 </resources>

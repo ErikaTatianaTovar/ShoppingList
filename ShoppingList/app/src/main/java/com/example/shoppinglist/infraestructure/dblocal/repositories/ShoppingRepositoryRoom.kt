@@ -19,8 +19,8 @@ class ShoppingRepositoryRoom constructor(
         return shoppingDao.insertAll(entities)
     }
 
-    fun calculateTotalPrice(): LiveData<Double> {
-        return shoppingDao.getcalculateTotalPrice()
+    fun getCalculateTotalPricePerProduct(): LiveData<Double> {
+        return shoppingDao.getCalculateTotalPricePerProduct()
     }
 
     fun getSumOfPrices(): LiveData<Double> {
