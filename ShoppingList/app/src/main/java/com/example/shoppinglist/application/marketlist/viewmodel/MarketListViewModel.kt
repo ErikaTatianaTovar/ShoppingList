@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import com.example.shoppinglist.application.marketlist.view.RecyclerMarketListAdapter
 import com.example.shoppinglist.domain.models.Market
-import com.example.shoppinglist.infraestructure.dblocal.MarketDataBase
+import com.example.shoppinglist.infraestructure.dblocal.AppDataBase
 import com.example.shoppinglist.infraestructure.dblocal.dtos.toMarketEntity
 import com.example.shoppinglist.infraestructure.dblocal.repositories.MarketListRepositoryRoom
 import kotlinx.coroutines.GlobalScope
@@ -17,8 +17,7 @@ class MarketListViewModel() : ViewModel() {
     private lateinit var marketRepositoryRoom: MarketListRepositoryRoom
 
     fun createDB(context: Context){
-        // val applicationContext = context.applicationContext
-        val marketDao = MarketDataBase.getInstance(context).marketDao()
+        val marketDao = AppDataBase.getInstance(context).marketDao()
         marketRepositoryRoom = MarketListRepositoryRoom(marketDao)
     }
 

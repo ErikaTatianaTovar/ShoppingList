@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.shoppinglist.application.home.view.RecyclerShoppingAdapter
 import com.example.shoppinglist.domain.models.Shopping
-import com.example.shoppinglist.infraestructure.dblocal.ShoppingDataBase
+import com.example.shoppinglist.infraestructure.dblocal.AppDataBase
 import com.example.shoppinglist.infraestructure.dblocal.dtos.toShoppingEntity
 import com.example.shoppinglist.infraestructure.dblocal.repositories.ShoppingRepositoryRoom
 import kotlinx.coroutines.GlobalScope
@@ -20,7 +20,7 @@ class ShoppingHomeViewModel: ViewModel() {
 
     fun createDB(context: Context){
        // val applicationContext = context.applicationContext
-        val shoppingDao = ShoppingDataBase.getInstance(context).shoppingDao()
+        val shoppingDao = AppDataBase.getInstance(context).shoppingDao()
        shoppingRepositoryRoom = ShoppingRepositoryRoom(shoppingDao)
     }
 

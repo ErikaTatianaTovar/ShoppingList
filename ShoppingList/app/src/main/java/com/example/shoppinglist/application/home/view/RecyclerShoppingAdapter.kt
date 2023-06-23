@@ -49,14 +49,19 @@ class RecyclerShoppingAdapter(private val shoppingHomeViewModel: ShoppingHomeVie
             }
 
             binding.textBoxPrice.doOnTextChanged { text, _, _, _ ->
-                shopping.price = text.toString().toDouble()
+                shopping.price = validateIfEmpty(text.toString()).toDouble()
             }
 
             binding.textBoxQuantity.doOnTextChanged { text, _, _, _ ->
-                shopping.quantity = text.toString().toInt()
+                shopping.quantity = validateIfEmpty(text.toString()).toInt()
             }
 
             binding.executePendingBindings()
+        }
+
+        private fun validateIfEmpty(value: String): String{
+            if (value.isEmpty()) return "0"
+            return value
         }
 
         override fun onItemSelected() {
