@@ -71,8 +71,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_unit_price"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:setAdapter="@{model.getRecyclerShoppingAdapter}" />
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_total"

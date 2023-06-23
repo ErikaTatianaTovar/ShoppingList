@@ -11,14 +11,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppinglist.R
 import com.example.shoppinglist.application.home.viewmodel.ShoppingHomeViewModel
 import com.example.shoppinglist.databinding.FragmentHomeBinding
+import com.example.shoppinglist.infraestructure.dblocal.dtos.toShoppingEntity
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class ShoppingHomeFragment : Fragment(), AdapterCallback {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private lateinit var rvShopping: RecyclerView
     private lateinit var homeViewModel: ShoppingHomeViewModel
+    private lateinit var recyclerShoppingAdapter: RecyclerShoppingAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,53 +38,42 @@ class ShoppingHomeFragment : Fragment(), AdapterCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         homeViewModel = ViewModelProvider(this)[ShoppingHomeViewModel::class.java]
+        recyclerShoppingAdapter = RecyclerShoppingAdapter(homeViewModel, {""}, this)
 
-        rvShopping = binding.rvShopping
-        rvShopping.adapter = homeViewModel.recyclerShoppingAdapter
-        homeViewModel.adapterCallback = this
-
+        binding.rvShopping.adapter = recyclerShoppingAdapter
 
         homeViewModel.createDB(requireContext())
 
         binding.shoppingFloatingActionButton.setOnClickListener {
-            homeViewModel.addNewItemShop()
+            homeViewModel.addNewItemShop(recyclerShoppingAdapter)
         }
         itemTouchCallback()
         sumOfPrices()
     }
 
-    override fun onValueUpdated(position: Int, value: String) {
-
+     override fun onValueUpdated(position: Int, value: String, idShopping: Int) {
         val viewHolder =
-            rvShopping.findViewHolderForAdapterPosition(position) as? RecyclerShoppingAdapter.ItemShoppingHolder
+            binding.rvShopping.findViewHolderForAdapterPosition(position) as? RecyclerShoppingAdapter.ItemShoppingHolder
         viewHolder?.binding?.valueTotalPerProduct?.text = value
-        homeViewModel.getCalculateTotalPricePerProduct(homeViewModel.adapterCallback)
-            .observe(viewLifecycleOwner) { calculate ->
-                val addToPrice = getString(R.string.text_total, (calculate ?: 0.0).toString())
-                viewHolder?.binding?.valueTotalPerProduct?.text = addToPrice
-            }
-    }
 
+        val calculate = GlobalScope.launch {homeViewModel.getCalculateTotalPricePerProduct(idShopping)
+        }
+        val addToPrice = getString(R.string.value_total_per_product, (calculate).toString())
+        viewHolder?.binding?.valueTotalPerProduct?.text = addToPrice
+
+    }
     private fun itemTouchCallback() {
-        val itemTouchHelperCallback = ItemTouchHelperCallback(homeViewModel.recyclerShoppingAdapter)
+        val itemTouchHelperCallback = ItemTouchHelperCallback(recyclerShoppingAdapter)
         val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
-        itemTouchHelper.attachToRecyclerView(rvShopping)
+        itemTouchHelper.attachToRecyclerView(binding.rvShopping)
 
         binding.model = homeViewModel
-    }
-
-    fun calculateTotalPricePerProduct() {
-        homeViewModel.getCalculateTotalPricePerProduct(homeViewModel.adapterCallback)
-            .observe(viewLifecycleOwner) { calculate ->
-                val addToPrice = getString(R.string.text_total, (calculate ?: 0.0).toString())
-                binding.textTotal.text = addToPrice
-            }
     }
 
     fun sumOfPrices() {
         homeViewModel.getSumOfPrices().observe(viewLifecycleOwner) { calculate ->
             val addToTotalPrice =
-                getString(R.string.value_total_per_product, (calculate ?: 0.0).toString())
+                getString(R.string.text_total, (calculate ?: 0.0).toString())
             binding.textTotal.text = addToTotalPrice
         }
     }

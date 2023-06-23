@@ -4,18 +4,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppinglist.BR
 import com.example.shoppinglist.R
 import com.example.shoppinglist.application.home.viewmodel.ShoppingHomeViewModel
 import com.example.shoppinglist.databinding.ShoppingItemBinding
-import com.example.shoppinglist.infraestructure.dblocal.repositories.ShoppingRepositoryRoom
 
 class RecyclerShoppingAdapter(
     private val shoppingHomeViewModel: ShoppingHomeViewModel,
     private val getValueByQuantity: () -> String,
-    var adapterCallback: AdapterCallback? = null
+    private var adapterCallback: AdapterCallback? = null
 ) :
     RecyclerView.Adapter<RecyclerShoppingAdapter.ItemShoppingHolder>(), ItemTouchHelperAdapter {
 
@@ -34,7 +32,7 @@ class RecyclerShoppingAdapter(
     }
 
     override fun onItemDismiss(position: Int) {
-        shoppingHomeViewModel.removeNewItemToShop(position)
+        shoppingHomeViewModel.removeNewItemToShop(position, this)
     }
 
     override fun onItemMove(fromPosition: Int, toPosition: Int) {
@@ -64,14 +62,13 @@ class RecyclerShoppingAdapter(
             binding.textBoxUnitPrice.doOnTextChanged { text, _, _, _ ->
                 shopping.unitPrice = text.toString().toDouble()
                 binding.valueTotalPerProduct.text = getValueByQuantity()
-                adapterCallback?.onValueUpdated(adapterPosition, getValueByQuantity())
-
+                adapterCallback?.onValueUpdated(adapterPosition, getValueByQuantity(),shopping.id)
             }
 
             binding.textBoxQuantity.doOnTextChanged { text, _, _, _ ->
                 shopping.quantity = text.toString().toInt()
                 binding.valueTotalPerProduct.text = getValueByQuantity()
-                adapterCallback?.onValueUpdated(adapterPosition, getValueByQuantity())
+                adapterCallback?.onValueUpdated(adapterPosition, getValueByQuantity(),shopping.id)
             }
 
             binding.executePendingBindings()

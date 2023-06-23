@@ -10,10 +10,12 @@ import com.example.shoppinglist.infraestructure.dblocal.entitys.ShoppingEntity
 @Dao
 interface ShoppingDao {
 
-    @Query("SELECT * FROM shopping_table WHERE idShopping = :idShopping")
-    fun getAllShopping(idShopping: Int): List<ShoppingEntity>
-    @Query("SELECT SUM(unitPrice * quantity) FROM shopping_table")
-    fun getCalculateTotalPricePerProduct(): LiveData<Double>
+    @Query("SELECT * FROM shopping_table")
+    fun getAllShopping(): List<ShoppingEntity>
+
+    @Query("UPDATE Shopping_table SET totalPricePerProduct = unitPrice * quantity WHERE idShopping = :idShopping")
+    fun getCalculateTotalPricePerProduct(idShopping: Int)
+
 
     @Query("SELECT SUM(totalPricePerProduct) FROM shopping_table")
     fun getSumOfPrices(): LiveData<Double>

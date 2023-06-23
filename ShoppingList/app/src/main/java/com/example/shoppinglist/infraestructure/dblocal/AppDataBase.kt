@@ -10,21 +10,23 @@ import com.example.shoppinglist.infraestructure.dblocal.entitys.MarketEntity
 import com.example.shoppinglist.infraestructure.dblocal.entitys.ShoppingEntity
 
 @Database(entities = [MarketEntity::class, ShoppingEntity::class], version = 3)
-abstract class AppDatabase : RoomDatabase() {
+abstract class AppDataBase : RoomDatabase() {
     abstract fun marketDao(): MarketDao
     abstract fun shoppingDao(): ShoppingDao
 
     companion object {
         @Volatile
-        private var INSTANCE: AppDatabase? = null
+        private var INSTANCE: AppDataBase? = null
 
-        fun getInstance(context: Context): AppDatabase {
+        fun getInstance(context: Context): AppDataBase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    AppDatabase::class.java,
+                    AppDataBase::class.java,
                     "app_database"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 instance
             }
