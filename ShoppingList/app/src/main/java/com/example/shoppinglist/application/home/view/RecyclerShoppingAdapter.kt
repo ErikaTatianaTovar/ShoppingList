@@ -39,21 +39,21 @@ class RecyclerShoppingAdapter(private val shoppingHomeViewModel: ShoppingHomeVie
     class ItemShoppingHolder(private val binding: ShoppingItemBinding) :
         RecyclerView.ViewHolder(binding.root), ItemTouchHelperViewHolder {
         fun setDataShopping(shoppingHomeViewModel: ShoppingHomeViewModel, position: Int) {
-            val shopping = shoppingHomeViewModel.shoppingList[position]
+
 
             binding.setVariable(BR.shoppingHomeViewModel, shoppingHomeViewModel)
             binding.setVariable(BR.position, position)
 
             binding.textBoxProduct.doOnTextChanged { text, _, _, _ ->
-                shopping.nameOfProduct = text.toString()
+                shoppingHomeViewModel.shoppingList[position].nameOfProduct = text.toString()
             }
 
             binding.textBoxPrice.doOnTextChanged { text, _, _, _ ->
-                shopping.price = validateIfEmpty(text.toString()).toDouble()
+                shoppingHomeViewModel.shoppingList[position].price = validateIfEmpty(text.toString()).toDouble()
             }
 
             binding.textBoxQuantity.doOnTextChanged { text, _, _, _ ->
-                shopping.quantity = validateIfEmpty(text.toString()).toInt()
+                shoppingHomeViewModel.shoppingList[position].quantity = validateIfEmpty(text.toString()).toInt()
             }
 
             binding.executePendingBindings()

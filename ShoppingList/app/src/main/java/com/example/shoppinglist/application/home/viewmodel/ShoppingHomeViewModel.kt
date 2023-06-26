@@ -19,7 +19,6 @@ class ShoppingHomeViewModel: ViewModel() {
     private lateinit var shoppingRepositoryRoom: ShoppingRepositoryRoom
 
     fun createDB(context: Context){
-       // val applicationContext = context.applicationContext
         val shoppingDao = AppDataBase.getInstance(context).shoppingDao()
        shoppingRepositoryRoom = ShoppingRepositoryRoom(shoppingDao)
     }
