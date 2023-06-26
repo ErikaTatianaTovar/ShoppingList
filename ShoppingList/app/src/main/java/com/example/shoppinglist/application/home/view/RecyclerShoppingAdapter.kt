@@ -12,8 +12,8 @@ import com.example.shoppinglist.application.home.viewmodel.ShoppingHomeViewModel
 import com.example.shoppinglist.databinding.ShoppingItemBinding
 
 class RecyclerShoppingAdapter(
-    private val shoppingHomeViewModel: ShoppingHomeViewModel
-    private val getValueByQuantity: () -> String
+    private val shoppingHomeViewModel: ShoppingHomeViewModel,
+    //private val getValueByQuantity: () -> String
     ):
     RecyclerView.Adapter<RecyclerShoppingAdapter.ItemShoppingHolder>(), ItemTouchHelperAdapter {
 

@@ -18,8 +18,7 @@ class ShoppingHomeFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var recyclerViewShopping: RecyclerView
     private lateinit var homeViewModel: ShoppingHomeViewModel
-    private lateinit var recyclerShoppingAdapter: RecyclerShoppingAdapter
-
+  //  private lateinit var recyclerShoppingAdapter: RecyclerShoppingAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,6 +26,7 @@ class ShoppingHomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        recyclerViewShopping = binding.rvShopping
         val root: View = binding.root
         return root
     }
@@ -34,14 +34,14 @@ class ShoppingHomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         homeViewModel = ViewModelProvider(this)[ShoppingHomeViewModel::class.java]
-        recyclerShoppingAdapter = RecyclerShoppingAdapter(homeViewModel, {""})
+     //   recyclerShoppingAdapter = RecyclerShoppingAdapter(homeViewModel, {""})
 
-        binding.rvShopping.adapter = recyclerShoppingAdapter
+     //   binding.rvShopping.adapter = recyclerShoppingAdapter
 
         homeViewModel.createDB(requireContext())
 
         binding.shoppingFloatingActionButton.setOnClickListener {
-            homeViewModel.addNewItemShop(recyclerShoppingAdapter)
+        //    homeViewModel.addNewItemShop(recyclerShoppingAdapter)
         }
         itemTouchCallback()
         sumOfPrices()
