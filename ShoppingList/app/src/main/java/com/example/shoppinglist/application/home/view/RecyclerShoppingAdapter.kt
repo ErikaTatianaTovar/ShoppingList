@@ -11,7 +11,10 @@ import com.example.shoppinglist.R
 import com.example.shoppinglist.application.home.viewmodel.ShoppingHomeViewModel
 import com.example.shoppinglist.databinding.ShoppingItemBinding
 
-class RecyclerShoppingAdapter(private val shoppingHomeViewModel: ShoppingHomeViewModel) :
+class RecyclerShoppingAdapter(
+    private val shoppingHomeViewModel: ShoppingHomeViewModel
+    private val getValueByQuantity: () -> String
+    ):
     RecyclerView.Adapter<RecyclerShoppingAdapter.ItemShoppingHolder>(), ItemTouchHelperAdapter {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemShoppingHolder {
