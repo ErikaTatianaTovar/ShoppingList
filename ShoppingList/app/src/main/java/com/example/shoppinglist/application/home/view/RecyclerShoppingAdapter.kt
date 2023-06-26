@@ -60,20 +60,23 @@ class RecyclerShoppingAdapter(
             }
 
             binding.textBoxUnitPrice.doOnTextChanged { text, _, _, _ ->
-                shopping.unitPrice = text.toString().toDouble()
+                shopping.unitPrice = validateIfEmpty(text.toString()).toDouble()
                 binding.valueTotalPerProduct.text = getValueByQuantity()
                 adapterCallback?.onValueUpdated(adapterPosition, getValueByQuantity(),shopping.id)
             }
 
             binding.textBoxQuantity.doOnTextChanged { text, _, _, _ ->
-                shopping.quantity = text.toString().toInt()
+                shopping.quantity = validateIfEmpty(text.toString()).toInt()
                 binding.valueTotalPerProduct.text = getValueByQuantity()
                 adapterCallback?.onValueUpdated(adapterPosition, getValueByQuantity(),shopping.id)
             }
 
             binding.executePendingBindings()
         }
-
+        private fun validateIfEmpty(value: String): String{
+            if (value.isEmpty()) return "0"
+            return value
+        }
         override fun onItemSelected() {
             binding.root.setBackgroundColor(
                 ContextCompat.getColor(
