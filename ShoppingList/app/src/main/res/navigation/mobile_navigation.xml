@@ -21,5 +21,10 @@
         android:id="@+id/navigation_notifications"
         android:name="com.example.shoppinglist.application.notifications.view.NotificationsFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_notifications" >
+        <action
+            android:id="@+id/action_navigation_notifications_pop"
+            app:popUpTo="@id/navigation_notifications"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

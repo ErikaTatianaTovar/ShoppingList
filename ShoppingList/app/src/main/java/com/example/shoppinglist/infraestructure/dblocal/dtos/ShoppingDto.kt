@@ -14,7 +14,6 @@ fun List<Shopping>.toShoppingEntity(): List<ShoppingEntity> {
         )
     }
 }
-
 fun List<ShoppingEntity>.toDomainModel(): List<Shopping> {
     return map { shoppingEntity ->
         Shopping(

@@ -8,6 +8,7 @@ import com.example.shoppinglist.application.home.view.RecyclerShoppingAdapter
 import com.example.shoppinglist.domain.models.Shopping
 import com.example.shoppinglist.infraestructure.dblocal.AppDataBase
 import com.example.shoppinglist.infraestructure.dblocal.dtos.toShoppingEntity
+import com.example.shoppinglist.infraestructure.dblocal.entitys.ShoppingEntity
 import com.example.shoppinglist.infraestructure.dblocal.repositories.ShoppingRepositoryRoom
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -15,7 +16,7 @@ import kotlinx.coroutines.launch
 class ShoppingHomeViewModel: ViewModel() {
 
     val recyclerShoppingAdapter: RecyclerShoppingAdapter = RecyclerShoppingAdapter(this)
-    val shoppingList: ArrayList<Shopping> = arrayListOf(Shopping(0, "", 0.0, 0))
+    var shoppingList: ArrayList<Shopping> = arrayListOf(Shopping(0, "", 0.0, 0))
     private lateinit var shoppingRepositoryRoom: ShoppingRepositoryRoom
 
     fun createDB(context: Context){
@@ -41,5 +42,8 @@ class ShoppingHomeViewModel: ViewModel() {
 
     fun getSumOfPrices(): LiveData<Double> {
         return shoppingRepositoryRoom.getSumOfPrices()
+    }
+    fun getAllShopping(): LiveData<List<ShoppingEntity>> {
+        return shoppingRepositoryRoom.getAllShopping()
     }
 }

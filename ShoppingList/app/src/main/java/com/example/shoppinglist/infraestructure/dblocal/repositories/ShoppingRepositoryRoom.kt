@@ -11,8 +11,8 @@ class ShoppingRepositoryRoom constructor(
     private val shoppingDao: ShoppingDao
 ) : ShoppingRepositoryDbLocal {
 
-    override fun getAllShopping(idCategory: Int): List<Shopping> {
-        return shoppingDao.getAllShopping(idCategory).toDomainModel()
+    override fun getAllShopping(): LiveData<List<ShoppingEntity>>{
+        return shoppingDao.getAllShopping()
     }
 
     override suspend fun insertAll(entities: List<ShoppingEntity>) {
@@ -22,3 +22,9 @@ class ShoppingRepositoryRoom constructor(
         return shoppingDao.getSumOfPrices()
     }
 }
+/* override fun getAllShopping(): LiveData<Shopping> {
+        return Transformations.map(shoppingDao.getAllShopping()){
+            this.toDomainModel()
+        }
+
+    */

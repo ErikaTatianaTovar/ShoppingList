@@ -44,6 +44,10 @@ class RecyclerShoppingAdapter(private val shoppingHomeViewModel: ShoppingHomeVie
             binding.setVariable(BR.shoppingHomeViewModel, shoppingHomeViewModel)
             binding.setVariable(BR.position, position)
 
+            binding.textBoxProduct.setText(shoppingHomeViewModel.shoppingList[position].nameOfProduct)
+            binding.textBoxPrice.setText(shoppingHomeViewModel.shoppingList[position].price.toString())
+            binding.textBoxQuantity.setText(shoppingHomeViewModel.shoppingList[position].quantity.toString())
+
             binding.textBoxProduct.doOnTextChanged { text, _, _, _ ->
                 shoppingHomeViewModel.shoppingList[position].nameOfProduct = text.toString()
             }

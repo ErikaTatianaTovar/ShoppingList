@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppinglist.R
 import com.example.shoppinglist.application.home.viewmodel.ShoppingHomeViewModel
 import com.example.shoppinglist.databinding.FragmentHomeBinding
+import com.example.shoppinglist.infraestructure.dblocal.dtos.toDomainModel
 
 class ShoppingHomeFragment : Fragment() {
 
@@ -43,6 +44,9 @@ class ShoppingHomeFragment : Fragment() {
             homeViewModel.addNewItemShop()
         }
         itemTouchCallback()
+
+        allShopping()
+
         sumOfPrices()
     }
 
@@ -52,6 +56,13 @@ class ShoppingHomeFragment : Fragment() {
         itemTouchHelper.attachToRecyclerView(recyclerViewShopping)
 
         binding.model = homeViewModel
+    }
+
+    private fun allShopping() {
+        homeViewModel.getAllShopping().observe(viewLifecycleOwner) { shoppingList ->
+            homeViewModel.shoppingList = ArrayList(shoppingList.toDomainModel())
+        }
+        homeViewModel.recyclerShoppingAdapter.notifyDataSetChanged()
     }
 
     fun sumOfPrices() {
