@@ -25,7 +25,7 @@ class ShoppingHomeViewModel: ViewModel() {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun addNewItemShop() {
+    fun addNewItemShop(recyclerShoppingAdapter: RecyclerShoppingAdapter) {
         val shopping = Shopping(0, "", 0.0, 0)
         shoppingList.add(shopping)
         recyclerShoppingAdapter.notifyDataSetChanged()
