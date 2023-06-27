@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.shoppinglist.application.home.view.RecyclerShoppingAdapter
 import com.example.shoppinglist.domain.models.Shopping
 import com.example.shoppinglist.infraestructure.dblocal.AppDataBase
@@ -36,6 +37,10 @@ class ShoppingHomeViewModel: ViewModel() {
 
     @SuppressLint("NotifyDataSetChanged")
     fun removeNewItemToShop(position:Int) {
+        val itemToRemove = shoppingList[position]
+        viewModelScope.launch {
+            shoppingRepositoryRoom.deleteItemById(itemToRemove.id)
+        }
         shoppingList.removeAt(position)
         recyclerShoppingAdapter.notifyDataSetChanged()
     }

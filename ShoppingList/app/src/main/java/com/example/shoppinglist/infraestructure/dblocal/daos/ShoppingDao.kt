@@ -18,4 +18,7 @@ interface ShoppingDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(entities: List<ShoppingEntity>)
+
+    @Query("DELETE FROM shopping_table WHERE idShopping = :itemId")
+    suspend fun deleteItemById(itemId: Int)
 }

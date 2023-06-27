@@ -21,6 +21,9 @@ class ShoppingRepositoryRoom constructor(
     fun getSumOfPrices(): LiveData<Double> {
         return shoppingDao.getSumOfPrices()
     }
+    suspend fun deleteItemById(itemId: Int) {
+        shoppingDao.deleteItemById(itemId)
+    }
 }
 /* override fun getAllShopping(): LiveData<Shopping> {
         return Transformations.map(shoppingDao.getAllShopping()){
