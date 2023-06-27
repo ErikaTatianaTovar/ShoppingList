@@ -13,7 +13,7 @@ interface ShoppingDao {
     @Query("SELECT * FROM shopping_table")
     fun getAllShopping(): List<ShoppingEntity>
 
-    @Query("UPDATE Shopping_table SET totalPricePerProduct = unitPrice * quantity WHERE idShopping = :idShopping")
+    @Query("SELECT unitPrice * quantity FROM shopping_table  WHERE idShopping = :idShopping")
     fun getCalculateTotalPricePerProduct(idShopping: Int)
 
 
