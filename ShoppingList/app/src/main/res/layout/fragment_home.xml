@@ -9,7 +9,6 @@
             type="com.example.shoppinglist.application.home.viewmodel.ShoppingHomeViewModel" />
     </data>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -51,18 +50,18 @@
             app:layout_constraintStart_toEndOf="@+id/text_price"
             app:layout_constraintTop_toTopOf="parent" />
 
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_shopping"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_price"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:setAdapter="@{model.getRecyclerShoppingAdapter}"
-            />
+            app:layout_constraintBottom_toTopOf="@+id/shopping_floating_action_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_price"
+            app:layout_constraintVertical_bias="0.0"
+            app:setAdapter="@{model.getRecyclerShoppingAdapter}" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_total"
