@@ -7,7 +7,7 @@ import com.example.shoppinglist.domain.models.Shopping
 fun List<Shopping>.toShoppingEntity(): List<ShoppingEntity> {
     return mapIndexed { position, shopping ->
         ShoppingEntity(
-            id = position,
+            id = position.toLong(),
             nameOfProduct = shopping.nameOfProduct,
             price = shopping.price,
             quantity = shopping.quantity,

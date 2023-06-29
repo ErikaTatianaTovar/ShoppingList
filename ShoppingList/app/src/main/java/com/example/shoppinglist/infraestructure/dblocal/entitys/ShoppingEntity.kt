@@ -6,9 +6,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "Shopping_table")
 data class ShoppingEntity(
-    @PrimaryKey
+    @PrimaryKey (autoGenerate = true)
     @ColumnInfo(name = "idShopping")
-    val id: Int,
+    val id:Long = 0,
     val nameOfProduct: String,
     val price: Double,
     val quantity: Int,

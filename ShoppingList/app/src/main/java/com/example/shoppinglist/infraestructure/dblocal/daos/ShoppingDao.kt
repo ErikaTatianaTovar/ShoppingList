@@ -17,7 +17,7 @@ interface ShoppingDao {
     fun getSumOfPrices(): LiveData<Double>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(entities: List<ShoppingEntity>)
+    fun insertShopping(entity: List<ShoppingEntity>)
 
     @Query("DELETE FROM shopping_table WHERE idShopping = :itemId")
     suspend fun deleteItemById(itemId: Int)
