@@ -3,9 +3,7 @@ package com.example.shoppinglist.infraestructure.dblocal.repositories
 import androidx.lifecycle.LiveData
 import com.example.shoppinglist.domain.repositories.dblocal.ShoppingRepositoryDbLocal
 import com.example.shoppinglist.infraestructure.dblocal.daos.ShoppingDao
-import com.example.shoppinglist.infraestructure.dblocal.dtos.toDomainModel
 import com.example.shoppinglist.infraestructure.dblocal.entitys.ShoppingEntity
-import com.example.shoppinglist.domain.models.Shopping
 
 class ShoppingRepositoryRoom constructor(
     private val shoppingDao: ShoppingDao
@@ -15,8 +13,8 @@ class ShoppingRepositoryRoom constructor(
         return shoppingDao.getAllShopping()
     }
 
-    override suspend fun insertAll(entities: List<ShoppingEntity>) {
-        return shoppingDao.insertAll(entities)
+    override suspend fun insertShopping(entity:  List<ShoppingEntity>) {
+        return shoppingDao.insertShopping(entity)
     }
     fun getSumOfPrices(): LiveData<Double> {
         return shoppingDao.getSumOfPrices()
@@ -25,9 +23,3 @@ class ShoppingRepositoryRoom constructor(
         shoppingDao.deleteItemById(itemId)
     }
 }
-/* override fun getAllShopping(): LiveData<Shopping> {
-        return Transformations.map(shoppingDao.getAllShopping()){
-            this.toDomainModel()
-        }
-
-    */

@@ -14,32 +14,32 @@ import com.example.shoppinglist.infraestructure.dblocal.repositories.ShoppingRep
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class ShoppingHomeViewModel: ViewModel() {
+class ShoppingHomeViewModel : ViewModel() {
 
     val recyclerShoppingAdapter: RecyclerShoppingAdapter = RecyclerShoppingAdapter(this)
     var shoppingList: ArrayList<Shopping> = arrayListOf(Shopping(0, "", 0.0, 0))
     private lateinit var shoppingRepositoryRoom: ShoppingRepositoryRoom
 
-    fun createDB(context: Context){
+    fun createDB(context: Context) {
         val shoppingDao = AppDataBase.getInstance(context).shoppingDao()
-       shoppingRepositoryRoom = ShoppingRepositoryRoom(shoppingDao)
+        shoppingRepositoryRoom = ShoppingRepositoryRoom(shoppingDao)
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     fun addNewItemShop() {
-        val shopping = Shopping(0, "", 0.0, 0)
-        shoppingList.add(shopping)
+        val newItemShopping = Shopping(0, "", 0.0, 0)
+        shoppingList.add(newItemShopping)
         recyclerShoppingAdapter.notifyDataSetChanged()
-        GlobalScope.launch{
-            shoppingRepositoryRoom.insertAll(shoppingList.toShoppingEntity())
+        GlobalScope.launch {
+            shoppingRepositoryRoom.insertShopping(shoppingList.toShoppingEntity())
         }
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun removeNewItemToShop(position:Int) {
+    fun removeNewItemToShop(position: Int) {
         val itemToRemove = shoppingList[position]
+        val idToRemove = itemToRemove.id.toInt()
         viewModelScope.launch {
-            shoppingRepositoryRoom.deleteItemById(itemToRemove.id)
+            shoppingRepositoryRoom.deleteItemById(idToRemove)
         }
         shoppingList.removeAt(position)
         recyclerShoppingAdapter.notifyDataSetChanged()
@@ -48,6 +48,7 @@ class ShoppingHomeViewModel: ViewModel() {
     fun getSumOfPrices(): LiveData<Double> {
         return shoppingRepositoryRoom.getSumOfPrices()
     }
+
     fun getAllShopping(): LiveData<List<ShoppingEntity>> {
         return shoppingRepositoryRoom.getAllShopping()
     }
