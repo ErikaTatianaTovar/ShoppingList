@@ -26,6 +26,11 @@ abstract class AppDataBase : RoomDatabase() {
                     "app_database"
                 ).build()
                 INSTANCE = instance
+                instance.runInTransaction {
+                    val shoppingDao = instance.shoppingDao()
+                    val emptyItem = ShoppingEntity(0, "", 0.0, 0)
+                    shoppingDao.insertShopping(emptyItem)
+                }
                 instance
             }
         }
