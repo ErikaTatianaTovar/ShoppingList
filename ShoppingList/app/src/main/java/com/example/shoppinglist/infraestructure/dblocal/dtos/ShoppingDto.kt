@@ -6,12 +6,12 @@ import com.example.shoppinglist.domain.models.Shopping
 
 fun Shopping.toShoppingEntity(): ShoppingEntity {
     return ShoppingEntity(
-            id = 0,
-            nameOfProduct = this.nameOfProduct,
-            price = this.price,
-            quantity = this.quantity,
-        )
-    }
+        id = 0,
+        nameOfProduct = this.nameOfProduct,
+        price = this.price,
+        quantity = this.quantity,
+    )
+}
 
 fun List<ShoppingEntity>.toDomainModel(): List<Shopping> {
     return map { shoppingEntity ->

@@ -8,6 +8,11 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.shoppinglist.databinding.ActivityMainBinding
+import com.example.shoppinglist.infraestructure.dblocal.AppDataBase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,8 +20,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
+        GlobalScope.launch(Dispatchers.IO)  {
+                AppDataBase.getInstance(applicationContext)
+        }
         setContentView(binding.root)
 
         val navView: BottomNavigationView = binding.navView

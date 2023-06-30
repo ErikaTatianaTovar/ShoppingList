@@ -25,7 +25,7 @@ class RecyclerShoppingAdapter(private val shoppingHomeViewModel: ShoppingHomeVie
     }
 
     override fun getItemCount(): Int {
-        return shoppingHomeViewModel.shoppingList.size
+        return shoppingHomeViewModel.shoppingList?.size ?:0
     }
 
     override fun onItemDismiss(position: Int) {
@@ -39,31 +39,38 @@ class RecyclerShoppingAdapter(private val shoppingHomeViewModel: ShoppingHomeVie
     class ItemShoppingHolder(private val binding: ShoppingItemBinding) :
         RecyclerView.ViewHolder(binding.root), ItemTouchHelperViewHolder {
         fun setDataShopping(shoppingHomeViewModel: ShoppingHomeViewModel, position: Int) {
-
+            val shoppingList = shoppingHomeViewModel.shoppingList
+            val shoppingEntity = shoppingList?.get(position)
 
             binding.setVariable(BR.shoppingHomeViewModel, shoppingHomeViewModel)
             binding.setVariable(BR.position, position)
 
-            binding.textBoxProduct.setText(shoppingHomeViewModel.shoppingList[position].nameOfProduct)
-            binding.textBoxPrice.setText(shoppingHomeViewModel.shoppingList[position].price.toString())
-            binding.textBoxQuantity.setText(shoppingHomeViewModel.shoppingList[position].quantity.toString())
+            shoppingEntity?.let { entity ->
+                binding.textBoxProduct.setText(entity.nameOfProduct)
+                binding.textBoxPrice.setText(entity.price.toString())
+                binding.textBoxQuantity.setText(entity.quantity.toString())
 
-            binding.textBoxProduct.doOnTextChanged { text, _, _, _ ->
-                shoppingHomeViewModel.shoppingList[position].nameOfProduct = text.toString()
+                binding.textBoxProduct.doOnTextChanged { text, _, _, _ ->
+                    val updatedEntity = entity.copy(nameOfProduct = text.toString())
+                    shoppingList?.toMutableList()?.set(position, updatedEntity)
+                }
+
+                binding.textBoxPrice.doOnTextChanged { text, _, _, _ ->
+                    val updatedEntity = entity.copy(price = validateIfEmpty(text.toString()).toDouble())
+                    shoppingList?.toMutableList()?.set(position, updatedEntity)
+                }
+
+                binding.textBoxQuantity.doOnTextChanged { text, _, _, _ ->
+                    val updatedEntity = entity.copy(quantity = validateIfEmpty(text.toString()).toInt())
+                    shoppingList?.toMutableList()?.set(position, updatedEntity)
+                }
             }
 
-            binding.textBoxPrice.doOnTextChanged { text, _, _, _ ->
-                shoppingHomeViewModel.shoppingList[position].price = validateIfEmpty(text.toString()).toDouble()
-            }
-
-            binding.textBoxQuantity.doOnTextChanged { text, _, _, _ ->
-                shoppingHomeViewModel.shoppingList[position].quantity = validateIfEmpty(text.toString()).toInt()
-            }
 
             binding.executePendingBindings()
         }
 
-        private fun validateIfEmpty(value: String): String{
+        private fun validateIfEmpty(value: String): String {
             if (value.isEmpty()) return "0"
             return value
         }

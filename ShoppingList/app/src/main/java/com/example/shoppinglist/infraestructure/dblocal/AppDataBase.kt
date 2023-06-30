@@ -1,6 +1,8 @@
 package com.example.shoppinglist.infraestructure.dblocal
 
 import android.content.Context
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -13,6 +15,9 @@ import com.example.shoppinglist.infraestructure.dblocal.entitys.ShoppingEntity
 abstract class AppDataBase : RoomDatabase() {
     abstract fun marketDao(): MarketDao
     abstract fun shoppingDao(): ShoppingDao
+
+    private val _shoppingList = MutableLiveData<List<ShoppingEntity>>()
+    val shoppingList: LiveData<List<ShoppingEntity>> get() = _shoppingList
 
     companion object {
         @Volatile
@@ -30,6 +35,11 @@ abstract class AppDataBase : RoomDatabase() {
                     val shoppingDao = instance.shoppingDao()
                     val emptyItem = ShoppingEntity(0, "", 0.0, 0)
                     shoppingDao.insertShopping(emptyItem)
+
+                    val shoppingListLiveData = shoppingDao.getAllShopping()
+                    shoppingListLiveData.observeForever { shoppingList ->
+                        instance._shoppingList.value = shoppingList
+                    }
                 }
                 instance
             }

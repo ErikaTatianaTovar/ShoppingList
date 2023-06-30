@@ -3,53 +3,56 @@ package com.example.shoppinglist.application.home.viewmodel
 import android.annotation.SuppressLint
 import android.content.Context
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.shoppinglist.application.home.view.RecyclerShoppingAdapter
 import com.example.shoppinglist.domain.models.Shopping
 import com.example.shoppinglist.infraestructure.dblocal.AppDataBase
+import com.example.shoppinglist.infraestructure.dblocal.daos.ShoppingDao
 import com.example.shoppinglist.infraestructure.dblocal.dtos.toShoppingEntity
 import com.example.shoppinglist.infraestructure.dblocal.entitys.ShoppingEntity
 import com.example.shoppinglist.infraestructure.dblocal.repositories.ShoppingRepositoryRoom
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ShoppingHomeViewModel : ViewModel() {
 
-    val recyclerShoppingAdapter: RecyclerShoppingAdapter = RecyclerShoppingAdapter(this)
-    var shoppingList: ArrayList<Shopping> = arrayListOf(Shopping(0, "", 0.0, 0))
+    var shoppingList: List<Shopping>? = null
+
     private lateinit var shoppingRepositoryRoom: ShoppingRepositoryRoom
 
     fun createDB(context: Context) {
-        val shoppingDao = AppDataBase.getInstance(context).shoppingDao()
-        shoppingRepositoryRoom = ShoppingRepositoryRoom(shoppingDao)
+        GlobalScope.launch(Dispatchers.IO) {
+            val shoppingDao = AppDataBase.getInstance(context).shoppingDao()
+            withContext(Dispatchers.Main) {
+                shoppingRepositoryRoom = ShoppingRepositoryRoom(shoppingDao)
+            }
+        }
     }
 
+    fun getAllShopping() = shoppingRepositoryRoom.getAllShopping()
+
     fun addNewItemShop() {
-        val newItemShopping = Shopping(0, "", 0.0, 0)
-        shoppingList.add(newItemShopping)
-        recyclerShoppingAdapter.notifyDataSetChanged()
+        val newItemShopping = ShoppingEntity(0, "", 0.0, 0)
         GlobalScope.launch {
-            shoppingRepositoryRoom.insertShopping(shoppingList.toShoppingEntity())
+            shoppingRepositoryRoom.insertShopping(newItemShopping)
         }
     }
 
     @SuppressLint("NotifyDataSetChanged")
     fun removeNewItemToShop(position: Int) {
-        val itemToRemove = shoppingList[position]
-        val idToRemove = itemToRemove.id.toInt()
-        viewModelScope.launch {
-            shoppingRepositoryRoom.deleteItemById(idToRemove)
+        shoppingList?.let { list ->
+            viewModelScope.launch {
+                shoppingRepositoryRoom.deleteItemById(list[position].id)
+            }
         }
-        shoppingList.removeAt(position)
-        recyclerShoppingAdapter.notifyDataSetChanged()
     }
 
     fun getSumOfPrices(): LiveData<Double> {
         return shoppingRepositoryRoom.getSumOfPrices()
     }
 
-    fun getAllShopping(): LiveData<List<ShoppingEntity>> {
-        return shoppingRepositoryRoom.getAllShopping()
-    }
 }

@@ -12,13 +12,14 @@ import com.example.shoppinglist.R
 import com.example.shoppinglist.application.home.viewmodel.ShoppingHomeViewModel
 import com.example.shoppinglist.databinding.FragmentHomeBinding
 import com.example.shoppinglist.infraestructure.dblocal.dtos.toDomainModel
+import kotlinx.coroutines.Delay
 
 class ShoppingHomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private lateinit var recyclerViewShopping: RecyclerView
     private lateinit var homeViewModel: ShoppingHomeViewModel
+    private lateinit var recyclerShoppingAdapter: RecyclerShoppingAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,49 +27,47 @@ class ShoppingHomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-        return root
+
+        return binding.root
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         homeViewModel = ViewModelProvider(this)[ShoppingHomeViewModel::class.java]
-
-        recyclerViewShopping = binding.rvShopping
-        recyclerViewShopping.adapter = homeViewModel.recyclerShoppingAdapter
-
         homeViewModel.createDB(requireContext())
 
+        Thread.sleep(5000) // 2000 milisegundos (2 segundos)
+
+        recyclerShoppingAdapter = RecyclerShoppingAdapter(homeViewModel)
+        binding.rvShopping.adapter = recyclerShoppingAdapter
         binding.shoppingFloatingActionButton.setOnClickListener {
             homeViewModel.addNewItemShop()
         }
         itemTouchCallback()
-
         allShopping()
-
         sumOfPrices()
     }
 
     private fun itemTouchCallback() {
-        val itemTouchHelperCallback = ItemTouchHelperCallback(homeViewModel.recyclerShoppingAdapter)
+        val itemTouchHelperCallback = ItemTouchHelperCallback(recyclerShoppingAdapter)
         val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
-        itemTouchHelper.attachToRecyclerView(recyclerViewShopping)
-
+        itemTouchHelper.attachToRecyclerView(binding.rvShopping)
         binding.model = homeViewModel
     }
 
     private fun allShopping() {
         homeViewModel.getAllShopping().observe(viewLifecycleOwner) { shoppingList ->
-            homeViewModel.shoppingList = ArrayList(shoppingList.toDomainModel())
+            homeViewModel.shoppingList = shoppingList.toDomainModel()
+            recyclerShoppingAdapter.notifyDataSetChanged()
         }
-        homeViewModel.recyclerShoppingAdapter.notifyDataSetChanged()
     }
 
-    fun sumOfPrices() {
+    private fun sumOfPrices() {
         homeViewModel.getSumOfPrices().observe(viewLifecycleOwner) { sum ->
             val songsFound = getString(R.string.text_total, (sum ?: 0.0).toString())
             binding.textTotal.text = songsFound
+            recyclerShoppingAdapter.notifyDataSetChanged()
         }
     }
 
