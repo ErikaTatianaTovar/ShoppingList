@@ -5,8 +5,9 @@ import com.example.shoppinglist.infraestructure.dblocal.dtos.toDomainModel
 import com.example.shoppinglist.domain.repositories.dblocal.MarketRepositoryDbLocal
 import com.example.shoppinglist.infraestructure.dblocal.daos.MarketDao
 import com.example.shoppinglist.infraestructure.dblocal.entitys.MarketEntity
+import javax.inject.Inject
 
-class MarketListRepositoryRoom constructor(
+class MarketListRepositoryRoom @Inject constructor(
     private val marketDao: MarketDao
 ) : MarketRepositoryDbLocal {
 

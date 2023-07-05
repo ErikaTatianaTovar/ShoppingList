@@ -13,26 +13,18 @@ import com.example.shoppinglist.infraestructure.dblocal.daos.ShoppingDao
 import com.example.shoppinglist.infraestructure.dblocal.dtos.toShoppingEntity
 import com.example.shoppinglist.infraestructure.dblocal.entitys.ShoppingEntity
 import com.example.shoppinglist.infraestructure.dblocal.repositories.ShoppingRepositoryRoom
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class ShoppingHomeViewModel : ViewModel() {
+@HiltViewModel
+class ShoppingHomeViewModel @Inject constructor(private val shoppingRepositoryRoom: ShoppingRepositoryRoom) :
+    ViewModel() {
 
     var shoppingList: List<Shopping>? = null
-
-    private lateinit var shoppingRepositoryRoom: ShoppingRepositoryRoom
-
-    fun createDB(context: Context) {
-        GlobalScope.launch(Dispatchers.IO) {
-            val shoppingDao = AppDataBase.getInstance(context).shoppingDao()
-            withContext(Dispatchers.Main) {
-                shoppingRepositoryRoom = ShoppingRepositoryRoom(shoppingDao)
-            }
-        }
-    }
-
     fun getAllShopping() = shoppingRepositoryRoom.getAllShopping()
 
     fun addNewItemShop() {

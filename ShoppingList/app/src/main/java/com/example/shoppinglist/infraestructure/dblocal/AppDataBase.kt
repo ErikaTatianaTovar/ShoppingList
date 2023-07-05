@@ -6,12 +6,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.shoppinglist.infraestructure.dblocal.daos.MarketDao
 import com.example.shoppinglist.infraestructure.dblocal.daos.ShoppingDao
 import com.example.shoppinglist.infraestructure.dblocal.entitys.MarketEntity
 import com.example.shoppinglist.infraestructure.dblocal.entitys.ShoppingEntity
 
-@Database(entities = [MarketEntity::class, ShoppingEntity::class], version = 3)
+@Database(
+    entities = [MarketEntity::class, ShoppingEntity::class],
+    version = 3
+)
 abstract class AppDataBase : RoomDatabase() {
     abstract fun marketDao(): MarketDao
     abstract fun shoppingDao(): ShoppingDao
@@ -20,29 +24,37 @@ abstract class AppDataBase : RoomDatabase() {
     val shoppingList: LiveData<List<ShoppingEntity>> get() = _shoppingList
 
     companion object {
+
+        const val databaseName = "app_database"
+
         @Volatile
-        private var INSTANCE: AppDataBase? = null
-
+        private var instance: AppDataBase? = null
         fun getInstance(context: Context): AppDataBase {
-            return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    AppDataBase::class.java,
-                    "app_database"
-                ).build()
-                INSTANCE = instance
-                instance.runInTransaction {
-                    val shoppingDao = instance.shoppingDao()
-                    val emptyItem = ShoppingEntity(0, "", 0.0, 0)
-                    shoppingDao.insertShopping(emptyItem)
+            return instance ?: synchronized(this) {
+                instance ?: buildDatabase(context).also { instance = it }
 
-                    val shoppingListLiveData = shoppingDao.getAllShopping()
-                    shoppingListLiveData.observeForever { shoppingList ->
-                        instance._shoppingList.value = shoppingList
-                    }
-                }
-                instance
             }
+        }
+
+        private fun buildDatabase(context: Context): AppDataBase {
+            return Room.databaseBuilder(context, AppDataBase::class.java, databaseName)
+                .fallbackToDestructiveMigration()
+                .addCallback(object : Callback() {
+                    override fun onCreate(db: SupportSQLiteDatabase) {
+                        super.onCreate(db)
+                        instance?.runInTransaction {
+                            val shoppingDao = instance?.shoppingDao()
+                            val emptyItem = ShoppingEntity(0, "", 0.0, 0)
+                            shoppingDao?.insertShopping(emptyItem)
+
+                            val shoppingListLiveData = shoppingDao?.getAllShopping()
+                            shoppingListLiveData?.observeForever { shoppingList ->
+                                instance?._shoppingList?.value = shoppingList
+                            }
+                        }
+                    }
+                })
+                .build()
         }
     }
 }

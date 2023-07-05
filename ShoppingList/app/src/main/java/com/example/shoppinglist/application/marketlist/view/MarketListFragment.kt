@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppinglist.application.home.view.ItemTouchHelperCallback
 import com.example.shoppinglist.application.marketlist.viewmodel.MarketListViewModel
 import com.example.shoppinglist.databinding.FragmentMarketListBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MarketListFragment : Fragment() {
 
     private var _binding: FragmentMarketListBinding? = null
@@ -40,7 +42,6 @@ class MarketListFragment : Fragment() {
         rvMarket = binding.rvMarketList
         rvMarket.adapter = marketListViewModel.recyclerMarketListAdapter
 
-        marketListViewModel.createDB(requireContext())
 
         binding.marketFloatingActionButton.setOnClickListener {
             marketListViewModel.addNewItemMarketList()

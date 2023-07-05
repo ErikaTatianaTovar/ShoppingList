@@ -12,8 +12,10 @@ import com.example.shoppinglist.R
 import com.example.shoppinglist.application.home.viewmodel.ShoppingHomeViewModel
 import com.example.shoppinglist.databinding.FragmentHomeBinding
 import com.example.shoppinglist.infraestructure.dblocal.dtos.toDomainModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Delay
 
+@AndroidEntryPoint
 class ShoppingHomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
@@ -27,7 +29,6 @@ class ShoppingHomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
@@ -35,7 +36,6 @@ class ShoppingHomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         homeViewModel = ViewModelProvider(this)[ShoppingHomeViewModel::class.java]
-        homeViewModel.createDB(requireContext())
 
         Thread.sleep(5000) // 2000 milisegundos (2 segundos)
 

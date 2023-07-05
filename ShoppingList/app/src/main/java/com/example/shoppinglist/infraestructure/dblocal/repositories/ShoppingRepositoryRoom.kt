@@ -5,8 +5,9 @@ import com.example.shoppinglist.domain.repositories.dblocal.ShoppingRepositoryDb
 import com.example.shoppinglist.infraestructure.dblocal.AppDataBase
 import com.example.shoppinglist.infraestructure.dblocal.daos.ShoppingDao
 import com.example.shoppinglist.infraestructure.dblocal.entitys.ShoppingEntity
+import javax.inject.Inject
 
-class ShoppingRepositoryRoom constructor(
+class ShoppingRepositoryRoom @Inject constructor(
     private val shoppingDao: ShoppingDao
 ) : ShoppingRepositoryDbLocal {
 
