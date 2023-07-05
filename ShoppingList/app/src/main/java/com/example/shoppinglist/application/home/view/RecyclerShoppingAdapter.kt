@@ -53,16 +53,20 @@ class RecyclerShoppingAdapter(private val shoppingHomeViewModel: ShoppingHomeVie
                 binding.textBoxProduct.doOnTextChanged { text, _, _, _ ->
                     val updatedEntity = entity.copy(nameOfProduct = text.toString())
                     shoppingList?.toMutableList()?.set(position, updatedEntity)
+                    shoppingHomeViewModel.updateShopping()
+                    //falta agregar algo a los parentesis para que actualice ela lista shopping
                 }
 
                 binding.textBoxPrice.doOnTextChanged { text, _, _, _ ->
                     val updatedEntity = entity.copy(price = validateIfEmpty(text.toString()).toDouble())
                     shoppingList?.toMutableList()?.set(position, updatedEntity)
+                    shoppingHomeViewModel.updateShopping()
                 }
 
                 binding.textBoxQuantity.doOnTextChanged { text, _, _, _ ->
                     val updatedEntity = entity.copy(quantity = validateIfEmpty(text.toString()).toInt())
                     shoppingList?.toMutableList()?.set(position, updatedEntity)
+                    shoppingHomeViewModel.updateShopping()
                 }
             }
 

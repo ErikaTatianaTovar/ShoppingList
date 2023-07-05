@@ -16,7 +16,11 @@ class ShoppingRepositoryRoom @Inject constructor(
     }
 
     override suspend fun insertShopping(entity: ShoppingEntity) {
-        return shoppingDao.insertShopping(entity)
+        shoppingDao.insertShopping(entity)
+    }
+
+    override suspend fun updateShopping(shopping: ShoppingEntity) {
+        shoppingDao.updateShopping(shopping)
     }
 
     fun getSumOfPrices(): LiveData<Double> {

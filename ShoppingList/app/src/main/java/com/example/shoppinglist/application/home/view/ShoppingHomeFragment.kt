@@ -12,6 +12,7 @@ import com.example.shoppinglist.R
 import com.example.shoppinglist.application.home.viewmodel.ShoppingHomeViewModel
 import com.example.shoppinglist.databinding.FragmentHomeBinding
 import com.example.shoppinglist.infraestructure.dblocal.dtos.toDomainModel
+import com.example.shoppinglist.infraestructure.dblocal.entitys.ShoppingEntity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Delay
 

@@ -34,6 +34,12 @@ class ShoppingHomeViewModel @Inject constructor(private val shoppingRepositoryRo
         }
     }
 
+    fun updateShopping(shopping: ShoppingEntity) {
+        GlobalScope.launch {
+            shoppingRepositoryRoom.updateShopping(shopping)
+        }
+    }
+
     @SuppressLint("NotifyDataSetChanged")
     fun removeNewItemToShop(position: Int) {
         shoppingList?.let { list ->

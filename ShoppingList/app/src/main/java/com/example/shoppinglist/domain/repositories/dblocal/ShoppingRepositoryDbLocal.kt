@@ -7,4 +7,5 @@ import com.example.shoppinglist.domain.models.Shopping
 interface ShoppingRepositoryDbLocal {
     fun getAllShopping(): LiveData<List<ShoppingEntity>>
     suspend fun insertShopping(entities: ShoppingEntity)
+    suspend fun updateShopping (shopping: ShoppingEntity)
 }
