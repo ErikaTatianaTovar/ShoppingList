@@ -1,15 +1,10 @@
 package com.example.shoppinglist.application.home.viewmodel
 
 import android.annotation.SuppressLint
-import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.shoppinglist.application.home.view.RecyclerShoppingAdapter
 import com.example.shoppinglist.domain.models.Shopping
-import com.example.shoppinglist.infraestructure.dblocal.AppDataBase
-import com.example.shoppinglist.infraestructure.dblocal.daos.ShoppingDao
 import com.example.shoppinglist.infraestructure.dblocal.dtos.toShoppingEntity
 import com.example.shoppinglist.infraestructure.dblocal.entitys.ShoppingEntity
 import com.example.shoppinglist.infraestructure.dblocal.repositories.ShoppingRepositoryRoom
@@ -27,10 +22,10 @@ class ShoppingHomeViewModel @Inject constructor(private val shoppingRepositoryRo
     var shoppingList: List<Shopping>? = null
     fun getAllShopping() = shoppingRepositoryRoom.getAllShopping()
 
-    fun addNewItemShop() {
-        val newItemShopping = ShoppingEntity(0, "", 0.0, 0)
-        GlobalScope.launch {
-            shoppingRepositoryRoom.insertShopping(newItemShopping)
+    fun addNewItemShop(name: String, price: Double, quantity: Int) {
+        val shoppingEntity = ShoppingEntity(nameOfProduct = name, price = price, quantity = quantity)
+        viewModelScope.launch {
+            shoppingRepositoryRoom.insertShopping(shoppingEntity)
         }
     }
 

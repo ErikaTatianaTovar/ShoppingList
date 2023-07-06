@@ -4,12 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
-import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppinglist.BR
 import com.example.shoppinglist.R
 import com.example.shoppinglist.application.home.viewmodel.ShoppingHomeViewModel
 import com.example.shoppinglist.databinding.ShoppingItemBinding
+import com.example.shoppinglist.infraestructure.dblocal.dtos.toShoppingEntity
 
 class RecyclerShoppingAdapter(private val shoppingHomeViewModel: ShoppingHomeViewModel) :
     RecyclerView.Adapter<RecyclerShoppingAdapter.ItemShoppingHolder>(), ItemTouchHelperAdapter {
@@ -25,7 +25,7 @@ class RecyclerShoppingAdapter(private val shoppingHomeViewModel: ShoppingHomeVie
     }
 
     override fun getItemCount(): Int {
-        return shoppingHomeViewModel.shoppingList?.size ?:0
+        return shoppingHomeViewModel.shoppingList?.size ?: 0
     }
 
     override fun onItemDismiss(position: Int) {
@@ -39,37 +39,37 @@ class RecyclerShoppingAdapter(private val shoppingHomeViewModel: ShoppingHomeVie
     class ItemShoppingHolder(private val binding: ShoppingItemBinding) :
         RecyclerView.ViewHolder(binding.root), ItemTouchHelperViewHolder {
         fun setDataShopping(shoppingHomeViewModel: ShoppingHomeViewModel, position: Int) {
-            val shoppingList = shoppingHomeViewModel.shoppingList
-            val shoppingEntity = shoppingList?.get(position)
-
             binding.setVariable(BR.shoppingHomeViewModel, shoppingHomeViewModel)
             binding.setVariable(BR.position, position)
 
-            shoppingEntity?.let { entity ->
-                binding.textBoxProduct.setText(entity.nameOfProduct)
-                binding.textBoxPrice.setText(entity.price.toString())
-                binding.textBoxQuantity.setText(entity.quantity.toString())
+            shoppingHomeViewModel.shoppingList?.get(position)?.let { itemShopping ->
+                binding.boxNameOfProduct.setText(itemShopping.nameOfProduct)
+                binding.boxPrice.setText(itemShopping.price.toString())
+                binding.boxQuantity.setText(itemShopping.quantity.toString())
 
-                binding.textBoxProduct.doOnTextChanged { text, _, _, _ ->
-                    val updatedEntity = entity.copy(nameOfProduct = text.toString())
-                    shoppingList?.toMutableList()?.set(position, updatedEntity)
-                    shoppingHomeViewModel.updateShopping()
-                    //falta agregar algo a los parentesis para que actualice ela lista shopping
+                binding.boxNameOfProduct.doOnTextChanged { text, _, _, _ ->
+                    if (text != itemShopping.nameOfProduct){
+                        val updatedShopping = itemShopping.copy(nameOfProduct = text.toString())
+                        shoppingHomeViewModel.updateShopping(updatedShopping.toShoppingEntity())
+                    }
                 }
 
-                binding.textBoxPrice.doOnTextChanged { text, _, _, _ ->
-                    val updatedEntity = entity.copy(price = validateIfEmpty(text.toString()).toDouble())
-                    shoppingList?.toMutableList()?.set(position, updatedEntity)
-                    shoppingHomeViewModel.updateShopping()
+                binding.boxPrice.doOnTextChanged { text, _, _, _ ->
+                    if (text != itemShopping.price.toString()) {
+                        val updatedShopping =
+                            itemShopping.copy(price = validateIfEmpty(text.toString()).toDouble())
+                        shoppingHomeViewModel.updateShopping(updatedShopping.toShoppingEntity())
+                    }
                 }
 
-                binding.textBoxQuantity.doOnTextChanged { text, _, _, _ ->
-                    val updatedEntity = entity.copy(quantity = validateIfEmpty(text.toString()).toInt())
-                    shoppingList?.toMutableList()?.set(position, updatedEntity)
-                    shoppingHomeViewModel.updateShopping()
+                binding.boxQuantity.doOnTextChanged { text, _, _, _ ->
+                    if (text != itemShopping.quantity.toString()) {
+                        val updatedShopping =
+                            itemShopping.copy(quantity = validateIfEmpty(text.toString()).toInt())
+                        shoppingHomeViewModel.updateShopping(updatedShopping.toShoppingEntity())
+                    }
                 }
             }
-
 
             binding.executePendingBindings()
         }

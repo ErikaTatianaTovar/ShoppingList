@@ -12,7 +12,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".application.home.view.ShoppingHomeFragment">
+        tools:context=".application.home.view.ShoppingHomeFragment"
+        android:background="@color/white">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_name_of_product"
@@ -22,6 +23,7 @@
             android:text="@string/text_product"
             android:textAlignment="center"
             android:textSize="20sp"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toStartOf="@+id/text_price"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -34,6 +36,7 @@
             android:text="@string/text_price"
             android:textAlignment="center"
             android:textSize="20sp"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toStartOf="@+id/text_quantity"
             app:layout_constraintStart_toEndOf="@+id/text_name_of_product"
             app:layout_constraintTop_toTopOf="parent" />
@@ -46,6 +49,7 @@
             android:text="@string/text_quantity"
             android:textAlignment="center"
             android:textSize="20sp"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/text_price"
             app:layout_constraintTop_toTopOf="parent" />
@@ -69,6 +73,7 @@
             android:text="@string/text_total"
             android:textAlignment="center"
             android:textSize="20sp"
+            android:textColor="@color/black"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="16dp"
             app:layout_constraintTop_toTopOf="@+id/shopping_floating_action_button"

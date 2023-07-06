@@ -6,7 +6,7 @@ import com.example.shoppinglist.domain.models.Shopping
 
 fun Shopping.toShoppingEntity(): ShoppingEntity {
     return ShoppingEntity(
-        id = 0,
+        id = this.id,
         nameOfProduct = this.nameOfProduct,
         price = this.price,
         quantity = this.quantity,

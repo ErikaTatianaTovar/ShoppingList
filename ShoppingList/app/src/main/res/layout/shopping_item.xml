@@ -17,10 +17,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".application.home.view.ShoppingHomeFragment">
+        tools:context=".application.home.view.ShoppingHomeFragment"
+        android:background="@color/white">
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/text_box_product"
+            android:id="@+id/box_name_of_product"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -29,12 +30,15 @@
             android:layout_marginTop="10dp"
             android:textAlignment="center"
             android:textSize="20sp"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/black"
+            android:textColorHint="#90232323"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/text_box_price"
+            app:layout_constraintEnd_toStartOf="@+id/box_price"
             app:layout_constraintStart_toStartOf="parent"/>
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/text_box_price"
+            android:id="@+id/box_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:digits="0123456789.,"
@@ -44,13 +48,16 @@
             android:layout_marginTop="10dp"
             android:textAlignment="center"
             android:textSize="20sp"
+            android:textColor="@color/black"
+            android:textColorHint="#90232323"
+            android:backgroundTint="@color/black"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/text_box_quantity"
-            app:layout_constraintStart_toEndOf="@+id/text_box_product"
+            app:layout_constraintEnd_toStartOf="@+id/box_quantity"
+            app:layout_constraintStart_toEndOf="@+id/box_name_of_product"
             />
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/text_box_quantity"
+            android:id="@+id/box_quantity"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:digits="0123456789.,"
@@ -60,8 +67,11 @@
             android:textAlignment="center"
             android:hint="@string/quantity"
             android:textSize="20sp"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/black"
+            android:textColorHint="#90232323"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/text_box_price" />
+            app:layout_constraintStart_toEndOf="@+id/box_price" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
