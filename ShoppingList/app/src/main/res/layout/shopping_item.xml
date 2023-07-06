@@ -17,8 +17,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".application.home.view.ShoppingHomeFragment"
-        android:background="@color/white">
+        tools:context=".application.home.view.ShoppingHomeFragment">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/box_name_of_product"
