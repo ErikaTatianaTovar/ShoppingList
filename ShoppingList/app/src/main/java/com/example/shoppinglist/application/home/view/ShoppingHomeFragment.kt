@@ -84,12 +84,10 @@ class ShoppingHomeFragment : Fragment() {
             val price = binding.boxPrice.text.toString().toDouble()
             val quantity = binding.boxQuantity.text.toString().toInt()
             if (name.isNotEmpty() && price != null && quantity != null) {
-
                 homeViewModel.addNewItemShop(name, price, quantity)
                 popupWindow.dismiss()
             } else {
                 Toast.makeText(requireContext(), R.string.Please_fill_all_fields_correctly, Toast.LENGTH_SHORT).show()
-
             }
         }
 

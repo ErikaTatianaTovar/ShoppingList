@@ -24,7 +24,7 @@ class ShoppingHomeViewModel @Inject constructor(private val shoppingRepositoryRo
 
     fun addNewItemShop(name: String, price: Double, quantity: Int) {
         val shoppingEntity = ShoppingEntity(nameOfProduct = name, price = price, quantity = quantity)
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             shoppingRepositoryRoom.insertShopping(shoppingEntity)
         }
     }

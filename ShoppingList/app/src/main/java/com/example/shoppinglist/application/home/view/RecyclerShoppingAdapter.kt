@@ -46,29 +46,6 @@ class RecyclerShoppingAdapter(private val shoppingHomeViewModel: ShoppingHomeVie
                 binding.boxNameOfProduct.setText(itemShopping.nameOfProduct)
                 binding.boxPrice.setText(itemShopping.price.toString())
                 binding.boxQuantity.setText(itemShopping.quantity.toString())
-
-                binding.boxNameOfProduct.doOnTextChanged { text, _, _, _ ->
-                    if (text != itemShopping.nameOfProduct){
-                        val updatedShopping = itemShopping.copy(nameOfProduct = text.toString())
-                        shoppingHomeViewModel.updateShopping(updatedShopping.toShoppingEntity())
-                    }
-                }
-
-                binding.boxPrice.doOnTextChanged { text, _, _, _ ->
-                    if (text != itemShopping.price.toString()) {
-                        val updatedShopping =
-                            itemShopping.copy(price = validateIfEmpty(text.toString()).toDouble())
-                        shoppingHomeViewModel.updateShopping(updatedShopping.toShoppingEntity())
-                    }
-                }
-
-                binding.boxQuantity.doOnTextChanged { text, _, _, _ ->
-                    if (text != itemShopping.quantity.toString()) {
-                        val updatedShopping =
-                            itemShopping.copy(quantity = validateIfEmpty(text.toString()).toInt())
-                        shoppingHomeViewModel.updateShopping(updatedShopping.toShoppingEntity())
-                    }
-                }
             }
 
             binding.executePendingBindings()

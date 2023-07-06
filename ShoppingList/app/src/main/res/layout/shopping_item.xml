@@ -20,7 +20,7 @@
         tools:context=".application.home.view.ShoppingHomeFragment"
         android:background="@color/white">
 
-        <androidx.appcompat.widget.AppCompatEditText
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/box_name_of_product"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
             app:layout_constraintEnd_toStartOf="@+id/box_price"
             app:layout_constraintStart_toStartOf="parent"/>
 
-        <androidx.appcompat.widget.AppCompatEditText
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/box_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
             app:layout_constraintStart_toEndOf="@+id/box_name_of_product"
             />
 
-        <androidx.appcompat.widget.AppCompatEditText
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/box_quantity"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
