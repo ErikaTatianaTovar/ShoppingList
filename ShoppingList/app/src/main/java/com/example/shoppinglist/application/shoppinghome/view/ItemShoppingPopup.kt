@@ -71,6 +71,6 @@ class ItemShoppingPopup(
             }
         }
 
-        popupWindow.showAtLocation(binding.root, Gravity.AXIS_CLIP, 0, 0)
+        popupWindow.showAtLocation(binding.root, Gravity.CENTER, 0, 0)
     }
 }

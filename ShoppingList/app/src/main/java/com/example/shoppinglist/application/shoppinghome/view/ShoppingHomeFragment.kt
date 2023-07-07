@@ -38,8 +38,6 @@ class ShoppingHomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         homeViewModel = ViewModelProvider(this)[ShoppingHomeViewModel::class.java]
 
-        Thread.sleep(5000) // 2000 milisegundos (2 segundos)
-
         recyclerShoppingAdapter = RecyclerShoppingAdapter(homeViewModel)
         binding.rvShopping.adapter = recyclerShoppingAdapter
         binding.shoppingFloatingActionButton.setOnClickListener {
