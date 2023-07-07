@@ -1,6 +1,8 @@
 package com.example.shoppinglist
 
 import android.os.Bundle
+import android.view.View
+import android.widget.ProgressBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -19,11 +21,13 @@ import kotlinx.coroutines.withContext
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var loadingProgressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        loadingProgressBar= binding.loadingProgressBar
 
         val navView: BottomNavigationView = binding.navView
 
@@ -35,5 +39,13 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        showLoading()
+    }
+    fun showLoading() {
+        loadingProgressBar.visibility = View.VISIBLE
+    }
+
+    fun hideLoading() {
+        loadingProgressBar.visibility = View.GONE
     }
 }

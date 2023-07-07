@@ -12,5 +12,6 @@
     <string name="quantity">0</string>
     <string name="text_total">Total: %1$s</string>
     <string name="apply">Agregar</string>
-    <string name="Please_fill_all_fields_correctly">Por favor complete todos los campos correctamente.</string>
+    <string name="please_fill_all_fields">Por favor complete todos los campos.</string>
+    <string name="the_product_entered_is_not_valid">El producto ingresado no es válido</string>
 </resources>

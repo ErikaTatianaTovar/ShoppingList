@@ -13,6 +13,7 @@ import com.example.shoppinglist.application.home.view.ItemTouchHelperViewHolder
 import com.example.shoppinglist.application.marketlist.viewmodel.MarketListViewModel
 import com.example.shoppinglist.databinding.MarketItemBinding
 import androidx.appcompat.app.AlertDialog
+import com.example.shoppinglist.infraestructure.dblocal.entitys.ShoppingEntity
 
 class RecyclerMarketListAdapter(private val marketListViewModel: MarketListViewModel) :
     RecyclerView.Adapter<RecyclerMarketListAdapter.ItemMarketHolder>(), ItemTouchHelperAdapter {
@@ -35,10 +36,6 @@ class RecyclerMarketListAdapter(private val marketListViewModel: MarketListViewM
 
     override fun onItemDismiss(position: Int) {
         marketListViewModel.removeNewItemToMarketList(position)
-    }
-
-    override fun onItemMove(fromPosition: Int, toPosition: Int) {
-
     }
 
     class ItemMarketHolder(private val binding: MarketItemBinding) :

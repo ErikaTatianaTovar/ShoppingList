@@ -10,6 +10,9 @@ import com.example.shoppinglist.R
 import com.example.shoppinglist.application.home.viewmodel.ShoppingHomeViewModel
 import com.example.shoppinglist.databinding.ShoppingItemBinding
 import com.example.shoppinglist.infraestructure.dblocal.dtos.toShoppingEntity
+import com.example.shoppinglist.infraestructure.dblocal.entitys.ShoppingEntity
+import java.text.NumberFormat
+import java.util.Locale
 
 class RecyclerShoppingAdapter(private val shoppingHomeViewModel: ShoppingHomeViewModel) :
     RecyclerView.Adapter<RecyclerShoppingAdapter.ItemShoppingHolder>(), ItemTouchHelperAdapter {
@@ -32,28 +35,24 @@ class RecyclerShoppingAdapter(private val shoppingHomeViewModel: ShoppingHomeVie
         shoppingHomeViewModel.removeNewItemToShop(position)
     }
 
-    override fun onItemMove(fromPosition: Int, toPosition: Int) {
-
-    }
-
-    class ItemShoppingHolder(private val binding: ShoppingItemBinding) :
+    class ItemShoppingHolder(
+        private val binding: ShoppingItemBinding
+    ) :
         RecyclerView.ViewHolder(binding.root), ItemTouchHelperViewHolder {
         fun setDataShopping(shoppingHomeViewModel: ShoppingHomeViewModel, position: Int) {
-            binding.setVariable(BR.shoppingHomeViewModel, shoppingHomeViewModel)
-            binding.setVariable(BR.position, position)
-
             shoppingHomeViewModel.shoppingList?.get(position)?.let { itemShopping ->
-                binding.boxNameOfProduct.setText(itemShopping.nameOfProduct)
-                binding.boxPrice.setText(itemShopping.price.toString())
-                binding.boxQuantity.setText(itemShopping.quantity.toString())
+                binding.boxNameOfProduct.text = itemShopping.nameOfProduct
+                binding.boxPrice.text = (itemShopping.price).formatCurrency()
+                binding.boxQuantity.text = itemShopping.quantity.toString()
             }
-
-            binding.executePendingBindings()
-        }
-
-        private fun validateIfEmpty(value: String): String {
-            if (value.isEmpty()) return "0"
-            return value
+            binding.root.setOnClickListener {
+                shoppingHomeViewModel.shoppingList?.get(position)?.let {
+                    val itemShoppingPopup = ItemShoppingPopup(binding.root.context)
+                    itemShoppingPopup.showItemShoppingPopup(shoppingEntity = it.toShoppingEntity()) { shoppingEntity ->
+                        shoppingHomeViewModel.updateShopping(shoppingEntity)
+                    }
+                }
+            }
         }
 
         override fun onItemSelected() {

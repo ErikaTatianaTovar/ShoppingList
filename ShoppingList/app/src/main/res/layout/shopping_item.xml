@@ -1,76 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/blue"
+    android:clickable="true"
+    android:focusable="true"
+    tools:context=".application.home.view.ShoppingHomeFragment">
 
-    <data>
-        <variable
-            name="position"
-            type="Integer" />
-
-        <variable
-            name="shoppingHomeViewModel"
-            type="com.example.shoppinglist.application.home.viewmodel.ShoppingHomeViewModel" />
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/box_name_of_product"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:context=".application.home.view.ShoppingHomeFragment">
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/black"
+        android:clickable="false"
+        android:focusable="false"
+        android:hint="@string/product"
+        android:inputType="text"
+        android:maxLength="15"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textColorHint="#90232323"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/box_price"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/box_name_of_product"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:maxLength="15"
-            android:hint="@string/product"
-            android:layout_marginTop="10dp"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:backgroundTint="@color/black"
-            android:textColorHint="#90232323"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/box_price"
-            app:layout_constraintStart_toStartOf="parent"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/box_price"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/black"
+        android:clickable="false"
+        android:digits="0123456789"
+        android:focusable="false"
+        android:hint="@string/value"
+        android:inputType="number"
+        android:maxLength="10"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textColorHint="#90232323"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/box_quantity"
+        app:layout_constraintStart_toEndOf="@+id/box_name_of_product"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/box_price"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:digits="0123456789.,"
-            android:inputType="numberDecimal"
-            android:maxLength="10"
-            android:hint="@string/value"
-            android:layout_marginTop="10dp"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:textColorHint="#90232323"
-            android:backgroundTint="@color/black"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/box_quantity"
-            app:layout_constraintStart_toEndOf="@+id/box_name_of_product"
-            />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/box_quantity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/black"
+        android:clickable="false"
+        android:digits="0123456789"
+        android:focusable="false"
+        android:hint="@string/quantity"
+        android:inputType="number"
+        android:maxLength="10"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textColorHint="#90232323"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/box_price"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/box_quantity"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:digits="0123456789.,"
-            android:inputType="numberDecimal"
-            android:maxLength="10"
-            android:layout_marginTop="10dp"
-            android:textAlignment="center"
-            android:hint="@string/quantity"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:backgroundTint="@color/black"
-            android:textColorHint="#90232323"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/box_price" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>

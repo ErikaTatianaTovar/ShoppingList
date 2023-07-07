@@ -22,23 +22,21 @@ class ShoppingHomeViewModel @Inject constructor(private val shoppingRepositoryRo
     var shoppingList: List<Shopping>? = null
     fun getAllShopping() = shoppingRepositoryRoom.getAllShopping()
 
-    fun addNewItemShop(name: String, price: Double, quantity: Int) {
-        val shoppingEntity = ShoppingEntity(nameOfProduct = name, price = price, quantity = quantity)
+    fun addNewItemShop(shoppingEntity: ShoppingEntity) {
         viewModelScope.launch(Dispatchers.IO) {
             shoppingRepositoryRoom.insertShopping(shoppingEntity)
         }
     }
 
     fun updateShopping(shopping: ShoppingEntity) {
-        GlobalScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             shoppingRepositoryRoom.updateShopping(shopping)
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     fun removeNewItemToShop(position: Int) {
         shoppingList?.let { list ->
-            viewModelScope.launch {
+            viewModelScope.launch(Dispatchers.IO) {
                 shoppingRepositoryRoom.deleteItemById(list[position].id)
             }
         }
@@ -47,5 +45,4 @@ class ShoppingHomeViewModel @Inject constructor(private val shoppingRepositoryRo
     fun getSumOfPrices(): LiveData<Double> {
         return shoppingRepositoryRoom.getSumOfPrices()
     }
-
 }
