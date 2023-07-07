@@ -1,18 +1,13 @@
-package com.example.shoppinglist.application.home.view
+package com.example.shoppinglist.application.shoppinghome.view
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
-import com.example.shoppinglist.BR
 import com.example.shoppinglist.R
-import com.example.shoppinglist.application.home.viewmodel.ShoppingHomeViewModel
+import com.example.shoppinglist.application.shoppinghome.viewmodel.ShoppingHomeViewModel
 import com.example.shoppinglist.databinding.ShoppingItemBinding
 import com.example.shoppinglist.infraestructure.dblocal.dtos.toShoppingEntity
-import com.example.shoppinglist.infraestructure.dblocal.entitys.ShoppingEntity
-import java.text.NumberFormat
-import java.util.Locale
 
 class RecyclerShoppingAdapter(private val shoppingHomeViewModel: ShoppingHomeViewModel) :
     RecyclerView.Adapter<RecyclerShoppingAdapter.ItemShoppingHolder>(), ItemTouchHelperAdapter {

@@ -1,21 +1,16 @@
-package com.example.shoppinglist.application.home.view
+package com.example.shoppinglist.application.shoppinghome.view
 
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupWindow
-import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.shoppinglist.MainActivity
 import com.example.shoppinglist.R
-import com.example.shoppinglist.application.home.viewmodel.ShoppingHomeViewModel
+import com.example.shoppinglist.application.shoppinghome.viewmodel.ShoppingHomeViewModel
 import com.example.shoppinglist.databinding.FragmentHomeBinding
-import com.example.shoppinglist.databinding.ItemPopupBinding
 import com.example.shoppinglist.infraestructure.dblocal.dtos.toDomainModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.NumberFormat
@@ -90,7 +85,7 @@ class ShoppingHomeFragment : Fragment() {
     }
 }
 
-fun Double.formatCurrency(): String {
-    val currencyFormat = NumberFormat.getCurrencyInstance(Locale("es", "CO"))
-    return currencyFormat.format(this)
+    fun Double.formatCurrency(): String {
+        val currencyFormat = NumberFormat.getCurrencyInstance(Locale("es", "CO"))
+        return currencyFormat.format(this)
 }

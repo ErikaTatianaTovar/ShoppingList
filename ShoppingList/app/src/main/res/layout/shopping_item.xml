@@ -7,7 +7,7 @@
     android:background="@color/blue"
     android:clickable="true"
     android:focusable="true"
-    tools:context=".application.home.view.ShoppingHomeFragment">
+    tools:context=".application.shoppinghome.view.ShoppingHomeFragment">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/box_name_of_product"

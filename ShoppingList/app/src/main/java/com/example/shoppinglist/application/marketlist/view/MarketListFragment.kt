@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.example.shoppinglist.application.home.view.ItemTouchHelperCallback
+import com.example.shoppinglist.application.shoppinghome.view.ItemTouchHelperCallback
 import com.example.shoppinglist.application.marketlist.viewmodel.MarketListViewModel
 import com.example.shoppinglist.databinding.FragmentMarketListBinding
 import dagger.hilt.android.AndroidEntryPoint

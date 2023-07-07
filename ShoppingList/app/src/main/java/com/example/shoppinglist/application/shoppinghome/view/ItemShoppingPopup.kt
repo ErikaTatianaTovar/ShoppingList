@@ -1,4 +1,4 @@
-package com.example.shoppinglist.application.home.view
+package com.example.shoppinglist.application.shoppinghome.view
 
 import android.content.Context
 import android.view.Gravity
@@ -54,7 +54,7 @@ class ItemShoppingPopup(
                             quantity = quantity.toInt()
                         )
                     )
-                }catch (e: NumberFormatException) {
+                } catch (e: NumberFormatException) {
                     Toast.makeText(
                         context,
                         R.string.the_product_entered_is_not_valid,
@@ -73,6 +73,4 @@ class ItemShoppingPopup(
 
         popupWindow.showAtLocation(binding.root, Gravity.AXIS_CLIP, 0, 0)
     }
-
-
 }

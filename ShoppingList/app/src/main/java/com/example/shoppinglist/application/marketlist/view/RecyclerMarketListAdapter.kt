@@ -8,26 +8,24 @@ import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppinglist.BR
 import com.example.shoppinglist.R
-import com.example.shoppinglist.application.home.view.ItemTouchHelperAdapter
-import com.example.shoppinglist.application.home.view.ItemTouchHelperViewHolder
+import com.example.shoppinglist.application.shoppinghome.view.ItemTouchHelperAdapter
+import com.example.shoppinglist.application.shoppinghome.view.ItemTouchHelperViewHolder
 import com.example.shoppinglist.application.marketlist.viewmodel.MarketListViewModel
 import com.example.shoppinglist.databinding.MarketItemBinding
-import androidx.appcompat.app.AlertDialog
-import com.example.shoppinglist.infraestructure.dblocal.entitys.ShoppingEntity
 
 class RecyclerMarketListAdapter(private val marketListViewModel: MarketListViewModel) :
     RecyclerView.Adapter<RecyclerMarketListAdapter.ItemMarketHolder>(), ItemTouchHelperAdapter {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemMarketHolder {
 
-            val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context)
-            val binding = MarketItemBinding.inflate(layoutInflater, parent, false)
-            return ItemMarketHolder(binding)
+        val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context)
+        val binding = MarketItemBinding.inflate(layoutInflater, parent, false)
+        return ItemMarketHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ItemMarketHolder, position: Int) {
 
-            holder.setDataMarket(marketListViewModel, position)
+        holder.setDataMarket(marketListViewModel, position)
     }
 
     override fun getItemCount(): Int {
@@ -84,5 +82,5 @@ class RecyclerMarketListAdapter(private val marketListViewModel: MarketListViewM
                 )
             )
         }
-        }
     }
+}

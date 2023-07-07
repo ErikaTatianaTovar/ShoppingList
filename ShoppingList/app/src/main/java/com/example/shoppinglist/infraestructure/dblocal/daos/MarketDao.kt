@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.shoppinglist.infraestructure.dblocal.entitys.MarketEntity
+
 @Dao
 interface MarketDao {
 

@@ -1,18 +1,14 @@
-package com.example.shoppinglist.application.home.viewmodel
+package com.example.shoppinglist.application.shoppinghome.viewmodel
 
-import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.shoppinglist.domain.models.Shopping
-import com.example.shoppinglist.infraestructure.dblocal.dtos.toShoppingEntity
 import com.example.shoppinglist.infraestructure.dblocal.entitys.ShoppingEntity
 import com.example.shoppinglist.infraestructure.dblocal.repositories.ShoppingRepositoryRoom
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
