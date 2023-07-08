@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.ShoppingList" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#86E4FC</item>
-        <item name="colorPrimaryVariant">#00ADB3</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">@color/green_blue</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -12,5 +12,20 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+        <item name="toolbarStyle">@style/AppBarStyle</item>
     </style>
+
+    <style name="Theme.ShoppingList.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.ShoppingList.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- Define the custom app bar style -->
+    <style name="AppBarStyle" parent="@style/Widget.MaterialComponents.Toolbar">
+        <!-- Customize the background color of the app bar -->
+        <item name="android:background">@color/blue_200</item>
+        <!-- Customize the text color of the app bar title -->
+        <item name="titleTextColor">@color/white</item>
+    </style>
+
 </resources>

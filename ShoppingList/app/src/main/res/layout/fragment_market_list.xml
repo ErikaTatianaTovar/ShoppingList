@@ -12,8 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".application.marketlist.view.MarketListFragment"
-        android:background="@color/white">
+        tools:context=".application.marketlist.view.MarketListFragment">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_name_of_product"
