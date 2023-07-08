@@ -27,12 +27,12 @@
             android:text="@string/text_price"
             android:textAlignment="center"
             android:textSize="20sp"
-            app:layout_constraintEnd_toStartOf="@+id/text_quantity"
+            app:layout_constraintEnd_toStartOf="@+id/box_quantity"
             app:layout_constraintStart_toEndOf="@+id/text_name_of_product"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_quantity"
+            android:id="@+id/box_quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -52,8 +52,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_price"
-            app:layout_constraintVertical_bias="0.0"/>
+            app:layout_constraintTop_toBottomOf="@+id/text_price"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_total"

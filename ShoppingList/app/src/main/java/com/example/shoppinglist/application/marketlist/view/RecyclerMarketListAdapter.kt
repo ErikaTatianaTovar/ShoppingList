@@ -1,17 +1,16 @@
 package com.example.shoppinglist.application.marketlist.view
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
-import com.example.shoppinglist.BR
 import com.example.shoppinglist.R
 import com.example.shoppinglist.application.shoppinghome.view.ItemTouchHelperAdapter
 import com.example.shoppinglist.application.shoppinghome.view.ItemTouchHelperViewHolder
 import com.example.shoppinglist.application.marketlist.viewmodel.MarketListViewModel
+import com.example.shoppinglist.application.shoppinghome.view.ItemMarketPopup
 import com.example.shoppinglist.databinding.MarketItemBinding
+import com.example.shoppinglist.infraestructure.dblocal.dtos.toMarketEntity
 
 class RecyclerMarketListAdapter(private val marketListViewModel: MarketListViewModel) :
     RecyclerView.Adapter<RecyclerMarketListAdapter.ItemMarketHolder>(), ItemTouchHelperAdapter {
@@ -24,12 +23,11 @@ class RecyclerMarketListAdapter(private val marketListViewModel: MarketListViewM
     }
 
     override fun onBindViewHolder(holder: ItemMarketHolder, position: Int) {
-
         holder.setDataMarket(marketListViewModel, position)
     }
 
     override fun getItemCount(): Int {
-        return marketListViewModel.marketList.size
+        return marketListViewModel.marketList?.size ?: 0
     }
 
     override fun onItemDismiss(position: Int) {
@@ -40,31 +38,19 @@ class RecyclerMarketListAdapter(private val marketListViewModel: MarketListViewM
         RecyclerView.ViewHolder(binding.root), ItemTouchHelperViewHolder {
 
         fun setDataMarket(marketListViewModel: MarketListViewModel, position: Int) {
-            val market = marketListViewModel.marketList[position]
-
-            binding.setVariable(BR.marketListViewModel, marketListViewModel)
-            binding.setVariable(BR.position, position)
-
-            binding.textProduct.doOnTextChanged { text, _, _, _ ->
-                marketListViewModel.marketList[position].nameOfProduct = text.toString()
-                Log.d(
-                    "RecyclerMarketListAdapter",
-                    "Updated nameOfProduct: ${marketListViewModel.marketList[position].nameOfProduct}"
-                )
+            marketListViewModel.marketList?.get(position)?.let { itemMarket ->
+                binding.boxNameOfProduct.text = itemMarket.nameOfProduct
+                binding.boxQuantity.text = itemMarket.quantity.toString()
             }
-
-            binding.textQuantity.doOnTextChanged { text, _, _, _ ->
-                val quantity = text.toString().toIntOrNull()
-                marketListViewModel.marketList[position].quantity = quantity ?: 0
-                Log.d(
-                    "RecyclerMarketListAdapter",
-                    "Updated quantity: ${marketListViewModel.marketList[position].quantity}"
-                )
+            binding.root.setOnClickListener {
+                marketListViewModel.marketList?.get(position)?.let {
+                    val itemMarketPopup = ItemMarketPopup(binding.root.context)
+                    itemMarketPopup.showItemMarketPopup(marketEntity = it.toMarketEntity()) { marketEntity ->
+                        marketListViewModel.updateMarket(marketEntity)
+                    }
+                }
             }
-
-            binding.executePendingBindings()
         }
-
         override fun onItemSelected() {
             binding.root.setBackgroundColor(
                 ContextCompat.getColor(

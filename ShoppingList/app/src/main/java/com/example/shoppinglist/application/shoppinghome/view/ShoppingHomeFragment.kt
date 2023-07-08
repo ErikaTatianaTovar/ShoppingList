@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.shoppinglist.MainActivity
 import com.example.shoppinglist.R
 import com.example.shoppinglist.application.shoppinghome.viewmodel.ShoppingHomeViewModel
-import com.example.shoppinglist.databinding.FragmentHomeBinding
+import com.example.shoppinglist.databinding.FragmentShoppingHomeBinding
 import com.example.shoppinglist.infraestructure.dblocal.dtos.toDomainModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.NumberFormat
@@ -19,27 +19,28 @@ import java.util.Locale
 @AndroidEntryPoint
 class ShoppingHomeFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentShoppingHomeBinding? = null
     private val binding get() = _binding!!
-    private lateinit var homeViewModel: ShoppingHomeViewModel
-    private lateinit var recyclerShoppingAdapter: RecyclerShoppingAdapter
+    private lateinit var shoppingHomeViewModel: ShoppingHomeViewModel
+    private lateinit var rvShoppingAdapter: RecyclerShoppingAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentShoppingHomeBinding.inflate(inflater, container, false)
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        homeViewModel = ViewModelProvider(this)[ShoppingHomeViewModel::class.java]
+        shoppingHomeViewModel = ViewModelProvider(this)[ShoppingHomeViewModel::class.java]
 
-        recyclerShoppingAdapter = RecyclerShoppingAdapter(homeViewModel)
-        binding.rvShopping.adapter = recyclerShoppingAdapter
+        rvShoppingAdapter = RecyclerShoppingAdapter(shoppingHomeViewModel)
+        binding.rvShopping.adapter = rvShoppingAdapter
+
         binding.shoppingFloatingActionButton.setOnClickListener {
             showNewItemShoppingPopup()
         }
@@ -49,15 +50,15 @@ class ShoppingHomeFragment : Fragment() {
     }
 
     private fun itemTouchCallback() {
-        val itemTouchHelperCallback = ItemTouchHelperCallback(recyclerShoppingAdapter)
+        val itemTouchHelperCallback = ItemTouchHelperCallback(rvShoppingAdapter)
         val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
         itemTouchHelper.attachToRecyclerView(binding.rvShopping)
     }
 
     private fun allShopping() {
-        homeViewModel.getAllShopping().observe(viewLifecycleOwner) { shoppingList ->
-            homeViewModel.shoppingList = shoppingList.toDomainModel()
-            recyclerShoppingAdapter.notifyDataSetChanged()
+        shoppingHomeViewModel.getAllShopping().observe(viewLifecycleOwner) { shoppingList ->
+            shoppingHomeViewModel.shoppingList = shoppingList.toDomainModel()
+            rvShoppingAdapter.notifyDataSetChanged()
             (activity as MainActivity).hideLoading()
         }
     }
@@ -65,15 +66,15 @@ class ShoppingHomeFragment : Fragment() {
     private fun showNewItemShoppingPopup() {
         val itemShoppingPopup = ItemShoppingPopup(requireContext())
         itemShoppingPopup.showItemShoppingPopup {
-            homeViewModel.addNewItemShop(it)
+            shoppingHomeViewModel.addNewItemShop(it)
         }
     }
 
     private fun sumOfPrices() {
-        homeViewModel.getSumOfPrices().observe(viewLifecycleOwner) { sum ->
+        shoppingHomeViewModel.getSumOfPrices().observe(viewLifecycleOwner) { sum ->
             val songsFound = getString(R.string.text_total, (sum ?: 0.0).formatCurrency())
             binding.textTotal.text = songsFound
-            recyclerShoppingAdapter.notifyDataSetChanged()
+            rvShoppingAdapter.notifyDataSetChanged()
         }
     }
 

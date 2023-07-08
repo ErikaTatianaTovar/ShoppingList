@@ -1,49 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-        <variable
-            name="position"
-            type="Integer" />
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    tools:context=".application.marketlist.view.MarketListFragment">
 
-        <variable
-            name="marketListViewModel"
-            type="com.example.shoppinglist.application.marketlist.viewmodel.MarketListViewModel"/>
-    </data>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/box_name_of_product"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/product"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/box_quantity"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/text_product"
-            android:layout_width="209dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:hint="@string/product"
-            android:inputType="text"
-            android:maxLength="20"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/text_quantity"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:maxLength="20"
-            android:hint="@string/text_quantity"
-            android:gravity="right"
-            android:textSize="20sp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/text_product"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/box_quantity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/text_quantity"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/box_name_of_product" />
+</androidx.constraintlayout.widget.ConstraintLayout>

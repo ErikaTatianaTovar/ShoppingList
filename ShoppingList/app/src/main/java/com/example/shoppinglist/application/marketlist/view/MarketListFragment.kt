@@ -1,18 +1,18 @@
 package com.example.shoppinglist.application.marketlist.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
+import com.example.shoppinglist.MainActivity
 import com.example.shoppinglist.application.shoppinghome.view.ItemTouchHelperCallback
 import com.example.shoppinglist.application.marketlist.viewmodel.MarketListViewModel
+import com.example.shoppinglist.application.shoppinghome.view.ItemMarketPopup
 import com.example.shoppinglist.databinding.FragmentMarketListBinding
+import com.example.shoppinglist.infraestructure.dblocal.dtos.toDomainModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,8 +20,8 @@ class MarketListFragment : Fragment() {
 
     private var _binding: FragmentMarketListBinding? = null
     private val binding get() = _binding!!
-    private lateinit var rvMarket: RecyclerView
     private lateinit var marketListViewModel: MarketListViewModel
+    private lateinit var rvMarketListAdapter: RecyclerMarketListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,54 +30,43 @@ class MarketListFragment : Fragment() {
     ): View {
 
         _binding = FragmentMarketListBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         marketListViewModel = ViewModelProvider(this)[MarketListViewModel::class.java]
 
-        rvMarket = binding.rvMarketList
-        rvMarket.adapter = marketListViewModel.recyclerMarketListAdapter
-
+        rvMarketListAdapter = RecyclerMarketListAdapter(marketListViewModel)
+        binding.rvMarketList.adapter = rvMarketListAdapter
 
         binding.marketFloatingActionButton.setOnClickListener {
-            marketListViewModel.addNewItemMarketList()
+            showNewItemMarketPopup()
         }
         itemTouchCallback()
+        allMarket()
     }
 
     private fun itemTouchCallback() {
-        try {
+        val itemTouchHelperCallback = ItemTouchHelperCallback(rvMarketListAdapter)
+        val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+        itemTouchHelper.attachToRecyclerView(binding.rvMarketList)
+    }
 
-            val itemTouchHelperCallback =
-                ItemTouchHelperCallback(marketListViewModel.recyclerMarketListAdapter)
-            val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
-            itemTouchHelper.attachToRecyclerView(rvMarket)
-
-            binding.marketListViewModel = marketListViewModel
-        } catch (e: Exception) {
-            onError(e)
+    private fun allMarket() {
+        marketListViewModel.getAllMarket().observe(viewLifecycleOwner) { marketList ->
+            marketListViewModel.marketList = marketList.toDomainModel()
+            rvMarketListAdapter.notifyDataSetChanged()
+            (activity as MainActivity).hideLoading()
         }
     }
 
-    private fun onError(exception: Exception) {
-        val errorMessage = "Se produjo un error: ${exception.message}"
-        Log.e("MarketListFragment", errorMessage)
-
-        val logErrorMessage = Log.getStackTraceString(exception)
-        val dialogTitle = "Error"
-        val dialogMessage = "Ocurrió un error. Detalles del error:\n\n$logErrorMessage"
-
-        val alertDialog = AlertDialog.Builder(requireContext())
-            .setTitle(dialogTitle)
-            .setMessage(dialogMessage)
-            .setPositiveButton("Aceptar", null)
-            .create()
-
-        alertDialog.show()
+    private fun showNewItemMarketPopup() {
+        val itemMarketPopup = ItemMarketPopup(requireContext())
+        itemMarketPopup.showItemMarketPopup {
+            marketListViewModel.addNewItemMarketList(it)
+        }
     }
 
     override fun onDestroyView() {

@@ -1,12 +1,12 @@
 package com.example.shoppinglist.application.marketlist.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.example.shoppinglist.application.marketlist.view.RecyclerMarketListAdapter
+import androidx.lifecycle.viewModelScope
 import com.example.shoppinglist.domain.models.Market
-import com.example.shoppinglist.infraestructure.dblocal.dtos.toMarketEntity
+import com.example.shoppinglist.infraestructure.dblocal.entitys.MarketEntity
 import com.example.shoppinglist.infraestructure.dblocal.repositories.MarketListRepositoryRoom
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -14,20 +14,27 @@ import javax.inject.Inject
 class MarketListViewModel @Inject constructor(private var marketRepositoryRoom: MarketListRepositoryRoom) :
     ViewModel() {
 
-    val recyclerMarketListAdapter: RecyclerMarketListAdapter = RecyclerMarketListAdapter(this)
-    val marketList: ArrayList<Market> = arrayListOf(Market(0, "", 0))
+    var marketList: List<Market>? = null
 
-    fun addNewItemMarketList() {
-        val market = Market(0, "", 0)
-        marketList.add(market)
-        recyclerMarketListAdapter.notifyDataSetChanged()
-        GlobalScope.launch {
-            marketRepositoryRoom.insertAll(marketList.toMarketEntity())
+    fun getAllMarket() = marketRepositoryRoom.getAllMarket()
+
+    fun addNewItemMarketList(marketEntity: MarketEntity) {
+        viewModelScope.launch(Dispatchers.IO) {
+            marketRepositoryRoom.insertMarket(marketEntity)
+        }
+    }
+
+    fun updateMarket(market: MarketEntity) {
+        viewModelScope.launch(Dispatchers.IO) {
+            marketRepositoryRoom.updateMarket(market)
         }
     }
 
     fun removeNewItemToMarketList(position: Int) {
-        marketList.removeAt(position)
-        recyclerMarketListAdapter.notifyDataSetChanged()
+        marketList?.let { list ->
+            viewModelScope.launch(Dispatchers.IO) {
+                marketRepositoryRoom.deleteItemById(list[position].id)
+            }
+        }
     }
 }

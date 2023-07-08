@@ -1,16 +1,16 @@
 package com.example.shoppinglist.infraestructure.dblocal.dtos
 
 import com.example.shoppinglist.domain.models.Market
+import com.example.shoppinglist.domain.models.Shopping
 import com.example.shoppinglist.infraestructure.dblocal.entitys.MarketEntity
+import com.example.shoppinglist.infraestructure.dblocal.entitys.ShoppingEntity
 
-fun List<Market>.toMarketEntity(): List<MarketEntity> {
-    return mapIndexed { position, market ->
-        MarketEntity(
-            id = position,
-            nameOfProduct = market.nameOfProduct,
-            quantity = market.quantity,
-        )
-    }
+fun Market.toMarketEntity(): MarketEntity {
+    return MarketEntity(
+        id = this.id,
+        nameOfProduct = this.nameOfProduct,
+        quantity = this.quantity,
+    )
 }
 
 fun List<MarketEntity>.toDomainModel(): List<Market> {

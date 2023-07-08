@@ -16,6 +16,7 @@ class ShoppingHomeViewModel @Inject constructor(private val shoppingRepositoryRo
     ViewModel() {
 
     var shoppingList: List<Shopping>? = null
+
     fun getAllShopping() = shoppingRepositoryRoom.getAllShopping()
 
     fun addNewItemShop(shoppingEntity: ShoppingEntity) {
