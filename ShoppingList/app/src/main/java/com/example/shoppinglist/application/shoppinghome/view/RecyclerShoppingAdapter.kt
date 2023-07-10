@@ -30,10 +30,9 @@ class RecyclerShoppingAdapter(private val shoppingHomeViewModel: ShoppingHomeVie
         shoppingHomeViewModel.removeNewItemToShop(position)
     }
 
-    class ItemShoppingHolder(
-        private val binding: ShoppingItemBinding
-    ) :
+    class ItemShoppingHolder(private val binding: ShoppingItemBinding) :
         RecyclerView.ViewHolder(binding.root), ItemTouchHelperViewHolder {
+
         fun setDataShopping(shoppingHomeViewModel: ShoppingHomeViewModel, position: Int) {
             shoppingHomeViewModel.shoppingList?.get(position)?.let { itemShopping ->
                 binding.boxNameOfProduct.text = itemShopping.nameOfProduct
@@ -63,7 +62,7 @@ class RecyclerShoppingAdapter(private val shoppingHomeViewModel: ShoppingHomeVie
             binding.root.setBackgroundColor(
                 ContextCompat.getColor(
                     binding.root.context,
-                    R.color.white
+                    com.google.android.material.R.color.mtrl_btn_transparent_bg_color
                 )
             )
         }

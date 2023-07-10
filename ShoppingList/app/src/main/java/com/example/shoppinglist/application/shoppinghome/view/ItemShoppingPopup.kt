@@ -11,9 +11,7 @@ import com.example.shoppinglist.databinding.ItemShoppingPopupBinding
 import com.example.shoppinglist.infraestructure.dblocal.entitys.ShoppingEntity
 import java.lang.NumberFormatException
 
-class ItemShoppingPopup(
-    private val context: Context
-) {
+class ItemShoppingPopup(private val context: Context) {
 
     fun showItemShoppingPopup(
         shoppingEntity: ShoppingEntity? = null,

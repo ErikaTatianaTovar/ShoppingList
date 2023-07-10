@@ -55,7 +55,7 @@ class RecyclerMarketListAdapter(private val marketListViewModel: MarketListViewM
             binding.root.setBackgroundColor(
                 ContextCompat.getColor(
                     binding.root.context,
-                    R.color.white
+                    R.color.red
                 )
             )
         }
@@ -64,7 +64,7 @@ class RecyclerMarketListAdapter(private val marketListViewModel: MarketListViewM
             binding.root.setBackgroundColor(
                 ContextCompat.getColor(
                     binding.root.context,
-                    R.color.white
+                    com.google.android.material.R.color.mtrl_btn_transparent_bg_color
                 )
             )
         }

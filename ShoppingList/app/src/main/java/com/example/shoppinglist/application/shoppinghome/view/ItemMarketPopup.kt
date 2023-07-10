@@ -11,8 +11,7 @@ import com.example.shoppinglist.databinding.ItemMarketPopupBinding
 import com.example.shoppinglist.infraestructure.dblocal.entitys.MarketEntity
 import java.lang.NumberFormatException
 
-class ItemMarketPopup ( private val context: Context
-) {
+class ItemMarketPopup ( private val context: Context) {
 
     fun showItemMarketPopup(
         marketEntity: MarketEntity? = null,
