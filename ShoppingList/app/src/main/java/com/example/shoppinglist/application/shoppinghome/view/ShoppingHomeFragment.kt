@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.shoppinglist.MainActivity
 import com.example.shoppinglist.R
+import com.example.shoppinglist.application.shared.ItemTouchHelperCallback
 import com.example.shoppinglist.application.shoppinghome.viewmodel.ShoppingHomeViewModel
 import com.example.shoppinglist.databinding.FragmentShoppingHomeBinding
 import com.example.shoppinglist.infraestructure.dblocal.dtos.toDomainModel
@@ -84,7 +85,7 @@ class ShoppingHomeFragment : Fragment() {
     }
 }
 
-    fun Double.formatCurrency(): String {
-        val currencyFormat = NumberFormat.getCurrencyInstance(Locale("es", "CO"))
-        return currencyFormat.format(this)
+fun Double.formatCurrency(): String {
+    val currencyFormat = NumberFormat.getCurrencyInstance(Locale("es", "CO"))
+    return currencyFormat.format(this)
 }

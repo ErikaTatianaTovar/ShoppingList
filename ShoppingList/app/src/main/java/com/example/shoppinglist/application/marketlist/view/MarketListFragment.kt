@@ -8,9 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.shoppinglist.MainActivity
-import com.example.shoppinglist.application.shoppinghome.view.ItemTouchHelperCallback
+import com.example.shoppinglist.application.shared.ItemTouchHelperCallback
 import com.example.shoppinglist.application.marketlist.viewmodel.MarketListViewModel
-import com.example.shoppinglist.application.shoppinghome.view.ItemMarketPopup
 import com.example.shoppinglist.databinding.FragmentMarketListBinding
 import com.example.shoppinglist.infraestructure.dblocal.dtos.toDomainModel
 import dagger.hilt.android.AndroidEntryPoint

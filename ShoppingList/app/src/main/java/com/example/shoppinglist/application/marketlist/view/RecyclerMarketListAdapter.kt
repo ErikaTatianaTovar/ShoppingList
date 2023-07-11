@@ -5,10 +5,9 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppinglist.R
-import com.example.shoppinglist.application.shoppinghome.view.ItemTouchHelperAdapter
-import com.example.shoppinglist.application.shoppinghome.view.ItemTouchHelperViewHolder
+import com.example.shoppinglist.application.shared.ItemTouchHelperAdapter
+import com.example.shoppinglist.application.shared.ItemTouchHelperViewHolder
 import com.example.shoppinglist.application.marketlist.viewmodel.MarketListViewModel
-import com.example.shoppinglist.application.shoppinghome.view.ItemMarketPopup
 import com.example.shoppinglist.databinding.MarketItemBinding
 import com.example.shoppinglist.infraestructure.dblocal.dtos.toMarketEntity
 
@@ -40,7 +39,7 @@ class RecyclerMarketListAdapter(private val marketListViewModel: MarketListViewM
         fun setDataMarket(marketListViewModel: MarketListViewModel, position: Int) {
             marketListViewModel.marketList?.get(position)?.let { itemMarket ->
                 binding.boxNameOfProduct.text = itemMarket.nameOfProduct
-                binding.boxQuantity.text = itemMarket.quantity.toString()
+                binding.boxQuantity.text = itemMarket.quantity
             }
             binding.root.setOnClickListener {
                 marketListViewModel.marketList?.get(position)?.let {

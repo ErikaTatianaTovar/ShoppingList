@@ -1,4 +1,4 @@
-package com.example.shoppinglist.application.shoppinghome.view
+package com.example.shoppinglist.application.shared
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView

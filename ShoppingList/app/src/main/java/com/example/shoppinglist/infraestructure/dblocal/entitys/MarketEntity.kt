@@ -10,5 +10,5 @@ data class MarketEntity(
     @ColumnInfo(name = "idMarket")
     val id: Int,
     val nameOfProduct: String,
-    val quantity: Int,
+    val quantity: String,
 )

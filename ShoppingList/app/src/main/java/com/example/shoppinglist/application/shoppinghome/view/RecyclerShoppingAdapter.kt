@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppinglist.R
+import com.example.shoppinglist.application.shared.ItemTouchHelperAdapter
+import com.example.shoppinglist.application.shared.ItemTouchHelperViewHolder
 import com.example.shoppinglist.application.shoppinghome.viewmodel.ShoppingHomeViewModel
 import com.example.shoppinglist.databinding.ShoppingItemBinding
 import com.example.shoppinglist.infraestructure.dblocal.dtos.toShoppingEntity

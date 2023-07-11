@@ -1,4 +1,4 @@
-package com.example.shoppinglist.application.shoppinghome.view
+package com.example.shoppinglist.application.marketlist.view
 
 import android.content.Context
 import android.view.Gravity
@@ -30,7 +30,7 @@ class ItemMarketPopup ( private val context: Context) {
 
         marketEntity?.let {
             binding.boxNameOfProduct.setText(it.nameOfProduct)
-            binding.boxQuantity.setText(it.quantity.toString())
+            binding.boxQuantity.setText(it.quantity)
         }
 
         popupWindow.isOutsideTouchable = true
@@ -46,7 +46,7 @@ class ItemMarketPopup ( private val context: Context) {
                         MarketEntity(
                             id = marketEntity?.id ?: 0,
                             nameOfProduct = name,
-                            quantity = quantity.toInt()
+                            quantity = quantity
                         )
                     )
                 } catch (e: NumberFormatException) {

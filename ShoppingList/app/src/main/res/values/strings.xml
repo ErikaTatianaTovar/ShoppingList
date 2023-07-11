@@ -1,9 +1,8 @@
 <resources>
-    <string name="app_name">Lista de compras</string>
-    <string name="title_home">Lista de compras</string>
-    <string name="title_market_list">mercado</string>
+    <string name="app_name">Lista de Compras</string>
+    <string name="title_home">Compras</string>
+    <string name="title_market_list">Mercado</string>
     <string name="title_notifications">Notificaciones</string>
-
     <string name="text_product">Producto</string>
     <string name="text_price">Precio</string>
     <string name="text_quantity">Cantidad</string>

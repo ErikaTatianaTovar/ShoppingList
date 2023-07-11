@@ -1,4 +1,4 @@
-package com.example.shoppinglist.application.shoppinghome.view
+package com.example.shoppinglist.application.shared
 
 
 interface ItemTouchHelperAdapter {
